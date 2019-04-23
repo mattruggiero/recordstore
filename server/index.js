@@ -11,6 +11,7 @@ const createUser = require('./routes/user/createUser');
 const login = require('./routes/user/logIn');
 const addRecord = require('./routes/adminOnly/Inventory/addRecord');
 const browseAll = require('./routes/shop/browseAll');
+const search = require('./routes/shop/search');
 
 
 mongoose
@@ -26,6 +27,7 @@ app.use(pino);
 app.use('/createUser',createUser);
 app.use('/login',login);
 app.use('/browseAll',browseAll);
+app.use('/search',search);
 
 //admin only routes
 app.use('/addRecord',addRecord);

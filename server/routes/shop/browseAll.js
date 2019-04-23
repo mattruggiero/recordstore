@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoDB = require('../../config/keys').mongoURI;
+
 
 const Record =require('../../models/Record');
 
