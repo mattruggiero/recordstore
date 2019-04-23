@@ -18,9 +18,7 @@ const discogsDB = discogsClient.database();
 const discogsCollection = discogsClient.user().collection();
 const discogsMarketPlace = discogsClient.marketplace();
 
-function garbage(garbageIn){
-    return garbageIn;
-}
+
 function getAskingPrice(suggestedPriceObject){
     let valuesArray = Object.values(suggestedPriceObject);
     let suggestedPrice = valuesArray[2].value;
