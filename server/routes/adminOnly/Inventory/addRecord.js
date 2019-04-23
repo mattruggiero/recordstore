@@ -7,7 +7,9 @@ const Discogs = require( 'disconnect' ).Client;
 const populate = require('../../../functions/populate');
 const keys = require('../../../config/keys');
 
-
+function helloWorld(){
+    return "hello world";
+}
 const myDiscogsUserName = keys.myDiscogsUserName;
 const myDiscogsAPIkey = keys.myDiscogsAPIkey;
 
