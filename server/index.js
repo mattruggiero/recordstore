@@ -10,6 +10,7 @@ const app = express();
 const createUser = require('./routes/user/createUser');
 const login = require('./routes/user/logIn');
 const addRecord = require('./routes/adminOnly/Inventory/addRecord');
+const browseAll = require('./routes/shop/browseAll');
 
 
 mongoose
@@ -21,9 +22,10 @@ mongoose
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(pino);
 
-//routes to use
+//routes
 app.use('/createUser',createUser);
 app.use('/login',login);
+app.use('/browseAll',browseAll);
 
 //admin only routes
 app.use('/addRecord',addRecord);
