@@ -7,7 +7,7 @@ const mongoDB = require('./config/keys').mongoURI;
 const app = express();
 
 // route vars
-const createUser = require('./routes/user/createUser');
+const registerNewUser = require('./routes/user/registerNewUser');
 const login = require('./routes/user/logIn');
 const addRecord = require('./routes/adminOnly/Inventory/addRecord');
 const browseAll = require('./routes/shop/browseAll');
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(pino);
 
 //routes
-app.use('/createUser',createUser);
+app.use('/register',registerNewUser);
 app.use('/login',login);
 app.use('/browseAll',browseAll);
 app.use('/search',search);
