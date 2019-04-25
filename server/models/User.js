@@ -48,7 +48,7 @@ const UserSchema = new Schema({
         required: true,
     }
     //STILL NEED CART
-    //Maybe user name
+    
 });
 // eslint-disable-next-line no-undef
 module.exports = User = mongoose.model('users', UserSchema);
