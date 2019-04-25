@@ -1,4 +1,3 @@
-//Author:Matt Ruggiero
 
 /* eslint-disable no-loop-func */
 const express = require('express');
@@ -70,4 +69,3 @@ router.get('/',(req,res) => {
 
 })
 module.exports = router;
-

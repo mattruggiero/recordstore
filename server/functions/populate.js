@@ -1,5 +1,5 @@
-const Record = require('../models/Record');
 
+const Record = require('../models/Record');
 
 
 
@@ -10,7 +10,7 @@ function populate (releaseData,releaseConditionAndPrice) {
         price: releaseConditionAndPrice.askingPrice,
         trackList : releaseData.tracklist,
         releaseID: releaseData.id,
-        masterID: releaseData.mater_id,
+        masterID: releaseData.master_id,
          artists: releaseData.artists,
         title: releaseData.title,
         notes:releaseData.notes_plaintext,

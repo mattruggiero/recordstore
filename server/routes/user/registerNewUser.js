@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 
-const validateRegisterInput = require('../../validator/register');
+const validateRegisterInput = require('../../validator/validateNewUser');
 
 
 router.get('/', (req,res) => {
