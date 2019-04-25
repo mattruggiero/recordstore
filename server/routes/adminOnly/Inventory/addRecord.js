@@ -11,6 +11,7 @@ const myDiscogsUserName = keys.myDiscogsUserName;
 const myDiscogsAPIkey = keys.myDiscogsAPIkey;
 
 const Record = require('../../../models/Record');
+let isEmpty = require('../../../validator/isEmpty');
 
 
 const discogsClient = new Discogs({userToken: myDiscogsAPIkey});
@@ -36,29 +37,38 @@ function isObjectFieldPresent(objectField){
 
 router.get('/',(req,res) => {
     let releaseNumber = 0;
-    let pageNumber = 2;
-    let keepGoing = true;
-    const perPage = 10;
-    let testNumber = 10;
+    let pageNumber = 1;
+    const perPage = 100;
+    let currentPage = 1;
+    let numberOfPages = 100;
 
-    while(testNumber--){
+    //while(pageNumber <= numberOfPages){
+    let go = true;
+    while(go){
+        go = false;
     discogsCollection.getReleases(myDiscogsUserName,1,{page:pageNumber, per_page:perPage},(err,dataFromCollection) => {
-        const numberOfReleasesOnPage = dataFromCollection.releases.length;
+        numberOfPages = dataFromCollection.pagination.pages;
+        currentPage = dataFromCollection.pagination.page;
+        while(releaseNumber < perPage){
         const releaseID = dataFromCollection.releases[releaseNumber].id;
         Record.findOne({releaseID:releaseID}).then(recordIsInDB=>{
             if(recordIsInDB) 
                 console.log(recordIsInDB.title + " is already in the DB");
             else{
-                const recordCondition = isObjectFieldPresent(dataFromCollection.releases[releaseNumber].notes);
+                
                 discogsMarketPlace.getPriceSuggestions(releaseID)
+                
                     .then(priceSuggestion =>{ 
+                        const recordCondition = isObjectFieldPresent(dataFromCollection.releases[releaseNumber].notes);
+                        console.log(recordCondition);
+                        
                         let askingPrice = getAskingPrice(priceSuggestion);
                         let releaseConditionAndPrice = {
                             releaseID:releaseID,
                             askingPrice:askingPrice,
                             mediaCondition:recordCondition ? recordCondition[0].value: "Very Good Plus (VG+)",
                             coverCondition:recordCondition ? recordCondition[1].value: "Very Good Plus (VG+)",
-                    }
+                        }
                     return releaseConditionAndPrice;
                     })
                     .then(releaseConditionAndPrice =>{
@@ -66,9 +76,18 @@ router.get('/',(req,res) => {
                         .then(releaseData =>{
                             populate(releaseData,releaseConditionAndPrice);
                         })
-                    })}
+                    })
+                }
             })
             releaseNumber++;
+
+            setTimeout(function(){
+                console.log("Timeout")
+            },5000)
+        }
+        pageNumber++;
+            
+            
             
         
     })}
