@@ -14,6 +14,7 @@ const browseAll = require('./routes/shop/browseAll');
 const search = require('./routes/shop/search');
 
 
+
 mongoose
     .connect(mongoDB,{useNewUrlParser:true})
     .then(()=> console.log('MongoDb Connected'))
@@ -29,8 +30,10 @@ app.use('/login',login);
 app.use('/browseAll',browseAll);
 app.use('/search',search);
 
+
 //admin only routes
 app.use('/addRecord',addRecord);
+
 
 
 app.get('*',(req,res, next)=>{
