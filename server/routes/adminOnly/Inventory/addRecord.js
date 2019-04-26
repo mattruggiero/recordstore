@@ -5,21 +5,14 @@ const router = express.Router();
 const Discogs = require( 'disconnect' ).Client;
 const populate = require('../../../functions/populate');
 const keys = require('../../../config/keys');
-
-
 const myDiscogsUserName = keys.myDiscogsUserName;
 const myDiscogsAPIkey = keys.myDiscogsAPIkey;
-
 const Record = require('../../../models/Record');
-let isEmpty = require('../../../validator/isEmpty');
-
-
 const discogsClient = new Discogs({userToken: myDiscogsAPIkey});
 discogsClient.setConfig({outputFormat:'plaintext'});
 const discogsDB = discogsClient.database();
 const discogsCollection = discogsClient.user().collection();
 const discogsMarketPlace = discogsClient.marketplace();
-
 
 function getAskingPrice(suggestedPriceObject){
     let valuesArray = Object.values(suggestedPriceObject);
@@ -28,40 +21,32 @@ function getAskingPrice(suggestedPriceObject){
     askingPrice++;
     return askingPrice;
 }
-
 function isObjectFieldPresent(objectField){
     if(objectField === undefined)
         return false;
     return objectField;
 }
+function sleep(milliSeconds){
+    return new Promise(resolve => 
+        setTimeout(resolve,milliSeconds)); 
+}
+async function wait(){
+    console.log("waiting");
+    await sleep(4000);
+    console.log("done waiting");
+}
 
-router.get('/',(req,res) => {
-    let releaseNumber = 0;
-    let pageNumber = 1;
-    const perPage = 100;
-    let currentPage = 1;
-    let numberOfPages = 100;
-
-    //while(pageNumber <= numberOfPages){
-    let go = true;
-    while(go){
-        go = false;
-    discogsCollection.getReleases(myDiscogsUserName,1,{page:pageNumber, per_page:perPage},(err,dataFromCollection) => {
-        numberOfPages = dataFromCollection.pagination.pages;
-        currentPage = dataFromCollection.pagination.page;
-        while(releaseNumber < perPage){
+function addRecord(releaseNumber,pageNumber,perPage){
+  discogsCollection.getReleases(myDiscogsUserName,1,{page:pageNumber, per_page:perPage},(err,dataFromCollection) => {
         const releaseID = dataFromCollection.releases[releaseNumber].id;
         Record.findOne({releaseID:releaseID}).then(recordIsInDB=>{
-            if(recordIsInDB) 
+            if(recordIsInDB) {
                 console.log(recordIsInDB.title + " is already in the DB");
+            }
             else{
-                
                 discogsMarketPlace.getPriceSuggestions(releaseID)
-                
-                    .then(priceSuggestion =>{ 
+                .then(priceSuggestion =>{ 
                         const recordCondition = isObjectFieldPresent(dataFromCollection.releases[releaseNumber].notes);
-                        console.log(recordCondition);
-                        
                         let askingPrice = getAskingPrice(priceSuggestion);
                         let releaseConditionAndPrice = {
                             releaseID:releaseID,
@@ -76,21 +61,30 @@ router.get('/',(req,res) => {
                         .then(releaseData =>{
                             populate(releaseData,releaseConditionAndPrice);
                         })
-                    })
-                }
-            })
-            releaseNumber++;
+                        .then(wait())
+                    })//after populate
+            }//else branch
+        })//record.findone
+    })//collection serach
+    
+    
 
-            setTimeout(function(){
-                console.log("Timeout")
-            },5000)
-        }
-        pageNumber++;
-            
-            
-            
+}
+
+
+router.get('/',(req,res)=>{
+    let releaseNumber = 0;
+    let perPage = 5;
+    let pageNumber = 29;
+
+  
+    while(releaseNumber < perPage){
+        addRecord(releaseNumber,pageNumber,perPage);
         
-    })}
-    res.send("WORKED");
-   })
+        releaseNumber++;
+    }
+    
+    
+    res.send("worked");
+})
 module.exports = router;
