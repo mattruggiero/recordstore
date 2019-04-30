@@ -61,8 +61,8 @@ function addRecord(releaseNumber,pageNumber,perPage){
 
 router.get('/',(req,res)=>{
     let releaseNumber = 0;
-    let perPage = 20;
-    let pageNumber = 7;
+    let perPage = 5;
+    let pageNumber = 29;
 
   
     while(releaseNumber < perPage){

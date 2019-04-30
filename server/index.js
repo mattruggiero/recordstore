@@ -12,6 +12,7 @@ const login = require('./routes/user/logIn');
 const addRecord = require('./routes/adminOnly/Inventory/addRecord');
 const browseAll = require('./routes/shop/browseAll');
 const search = require('./routes/shop/search');
+const functionTesting = require('./routes/adminOnly/functionTesting');
 
 
 
@@ -31,8 +32,10 @@ app.use('/browseAll',browseAll);
 app.use('/search',search);
 
 
+
 //admin only routes
 app.use('/addRecord',addRecord);
+app.use('/functionTesting',functionTesting);
 
 
 
