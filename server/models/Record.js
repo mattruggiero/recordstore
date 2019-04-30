@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const RecordSchema = new Schema({
     releaseID:{
-        type:String
+        type:String,
+        unique:true
     },
     masterID:{
         type:String
@@ -45,6 +46,10 @@ const RecordSchema = new Schema({
     },
     coverCondition:{
         type: String
+    }, 
+    readyToDisplay: {
+        type: Boolean, 
+        default:false
     }
 
     

@@ -20,7 +20,7 @@ function sleep(milliSeconds){
 }
 async function wait(){
     console.log("waiting");
-    await sleep(40000);
+    await sleep(2000);
     console.log("done waiting");
 }
 
@@ -61,8 +61,8 @@ function addRecord(releaseNumber,pageNumber,perPage){
 
 router.get('/',(req,res)=>{
     let releaseNumber = 0;
-    let perPage = 5;
-    let pageNumber = 29;
+    let perPage = 30;
+    let pageNumber = 1;
 
   
     while(releaseNumber < perPage){

@@ -17,7 +17,10 @@ const functionTesting = require('./routes/adminOnly/functionTesting');
 
 
 mongoose
-    .connect(mongoDB,{useNewUrlParser:true})
+    .connect(mongoDB,{
+        useNewUrlParser:true,
+        useCreateIndex:true
+    })
     .then(()=> console.log('MongoDb Connected'))
     .catch(err=> console.log(err));
    

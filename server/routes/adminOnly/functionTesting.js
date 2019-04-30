@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const importFunctions = require('../../functions/importFunctions');
+const Record = require('../../models/Record');
 
-
+//working but should be split into getter/setter!!!!
 router.get('/',(req,res)=>{
-    let allID = [];
-    
-    importFunctions.getNumberOfPages('mattrules65')
-    .then(numberOfPages => {
-        nums = numberOfPages;
-        console.log("Num Pages: " + numberOfPages);
-    })
-    
-    importFunctions.getReleaseIDs('mattrules65',1)
+    importFunctions.getIDandCondition('mattrules65',1)
         .then(returnObject =>{
-            for(let id in returnObject.idArray){
-                allID.push(returnObject.idArray[id]);
+            let recordData = returnObject.initialData;
+            for(let each in returnObject.initialData){
+                let newRecord = new Record({
+                            releaseID:recordData[each].releaseID,
+                            mediaCondition:recordData[each].mediaCondition,
+                            coverCondition:recordData[each].coverCondition,
+                        })
+                    newRecord.save((err)=>{
+                            if(err)
+                                console.log("loser");
+                            else
+                                console.log("saved");
+                        })
             }
-            res.send(returnObject.idArray);
-        })
+        res.send(returnObject);
+    })
     
  });
     
