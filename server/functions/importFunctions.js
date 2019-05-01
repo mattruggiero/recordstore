@@ -53,6 +53,7 @@ module.exports = {
     //n api calls
     async setPrice(recordData){
         try{
+            console.log("setting price");
             let initialData = recordData.initialData;
             for(let each of initialData){
                 each.askingPrice = await this.getAskingPrice(each.releaseID);
