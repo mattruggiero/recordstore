@@ -3,18 +3,17 @@ const router = express.Router();
 const importFunctions = require('../../functions/importFunctions');
 const Record = require('../../models/Record');
 var async = require('async');
-//var _ = require('lodash');
 
-//working but should be split into getter/setter!!!!
+
 router.get('/',(req,res)=>{
     importFunctions.getIDandCondition('mattrules65',1)
         .then(returnObject =>{
-         var tasksQueue = async.queue(function(task,callback){
+         let tasksQueue = async.queue((task,callback)=> {
                 console.log('Performing task: '+ task.name);
                 console.log('Waiting to be processed: ',tasksQueue.length());
                 console.log('_________________');
 
-                setTimeout(function(){
+                setTimeout(()=>{
                     callback();
                 },1000);
             },1);
@@ -22,17 +21,17 @@ router.get('/',(req,res)=>{
         for(let each in returnObject.initialData){
                 let releaseID = returnObject.initialData[each].releaseID;
                 let name = "processing: "+releaseID;
-                tasksQueue.push({name:name},function(err){
+                tasksQueue.push({name:name},(error)=>{
+                    if(error){console.log(error)}
                     importFunctions.getAskingPrice(releaseID)
                         .then(result =>{
-                            console.log(each);
                             returnObject.initialData[each].askingPrice = result;
                         })
                 })
                 
             }
             tasksQueue.drain = ()=>{
-                setTimeout(function(){
+                setTimeout(()=> {
                     res.send(returnObject);
                 },1000);
             }
