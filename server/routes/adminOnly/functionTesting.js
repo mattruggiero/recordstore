@@ -8,24 +8,26 @@ router.get('/',(req,res)=>{
     importFunctions.getIDandCondition('mattrules65',1)
         .then(returnObject =>{
             let recordData = returnObject.initialData;
-            for(let each in returnObject.initialData){
-                let newRecord = new Record({
-                            releaseID:recordData[each].releaseID,
-                            mediaCondition:recordData[each].mediaCondition,
-                            coverCondition:recordData[each].coverCondition,
-                        })
-                    newRecord.save((err)=>{
-                            if(err)
-                                console.log("loser");
-                            else
-                                console.log("saved");
-                        })
-            }
-        res.send(returnObject);
+            // for(let each in returnObject.initialData){
+            //     let newRecord = new Record({
+            //                 releaseID:recordData[each].releaseID,
+            //                 mediaCondition:recordData[each].mediaCondition,
+            //                 coverCondition:recordData[each].coverCondition,
+            //             })
+            //         newRecord.save((err)=>{
+            //                 if(err)
+            //                     console.log("loser");
+            //                 else
+            //                     console.log("saved");
+            //             })
+            // }
+        
+            importFunctions.setPrice(returnObject).then(results=>res.send(results));
+
     })
     
  });
-    
+
 
 
 module.exports = router;
