@@ -46,7 +46,7 @@ module.exports = {
             return suggestedPrice++;
         }
         catch(error){
-            console.log("error in importFunctions.getAskingPrice");
+            console.log("error @ importFunctions.getAskingPrice");
             return(error);
         }
     },

@@ -8,7 +8,6 @@
     "disconnect": "^1.2.1",
     "image-downloader": "^3.4.2",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
     "mongoose": "^5.5.0",
     "passport": "^0.4.0",
     "ratelimiter": "^3.3.0",
