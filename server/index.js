@@ -9,12 +9,9 @@ const app = express();
 // route vars
 const registerNewUser = require('./routes/user/registerNewUser');
 const login = require('./routes/user/logIn');
-const addRecord = require('./routes/adminOnly/Inventory/addRecord');
+const addRecord = require('./routes/adminOnly/addRecord');
 const browseAll = require('./routes/shop/browseAll');
 const search = require('./routes/shop/search');
-const functionTesting = require('./routes/adminOnly/functionTesting');
-
-
 
 mongoose
     .connect(mongoDB,{
@@ -24,7 +21,6 @@ mongoose
     .then(()=> console.log('MongoDb Connected'))
     .catch(err=> console.log(err));
    
-    
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(pino);
 
@@ -34,12 +30,8 @@ app.use('/login',login);
 app.use('/browseAll',browseAll);
 app.use('/search',search);
 
-
-
 //admin only routes
 app.use('/addRecord',addRecord);
-app.use('/functionTesting',functionTesting);
-
 
 
 app.get('*',(req,res, next)=>{

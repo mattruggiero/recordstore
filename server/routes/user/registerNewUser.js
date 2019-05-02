@@ -10,7 +10,7 @@ router.get('/', (req,res) => {
     res.send("<h1>CREATE USER OK</h1>");
 })
 .post('/', (req, res) => {
-    //needs to have confirmPassword field 
+    //req.body needs to have confirmPassword field 
     let msg = validateRegisterInput(req.body);
     
     

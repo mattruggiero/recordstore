@@ -1,4 +1,5 @@
 const DB = require('../config/discogs');
+const Record = require('../models/Record');
 
 module.exports = {
     isObjectFieldPresent(objectField){
@@ -18,7 +19,7 @@ module.exports = {
     },
     //1 api call
     async getIDandCondition(discogsUserName,pageNumber){
-        let perPage = 10;
+        let perPage = 50;
         let returnObject = {allDone:false,initialData:[]};
         try{
             let results = await DB.discogsCollection.getReleases(discogsUserName,1,{page:pageNumber,per_page:perPage});
@@ -63,6 +64,31 @@ module.exports = {
             console.log("ERROR @ importFunctions.setPrice");
             return error;
         }
+    }, 
+    async populate (releaseConditionAndPrice) {
+        let releaseData = await DB.discogsDB.getRelease(releaseConditionAndPrice.releaseID);
+        let newRecordObject = {
+            price: releaseConditionAndPrice.askingPrice,
+            trackList : releaseData.tracklist,
+            releaseID: releaseData.id,
+            masterID: releaseData.master_id,
+             artists: releaseData.artists,
+            title: releaseData.title,
+            notes:releaseData.notes_plaintext,
+            formats:{
+                text:releaseData.formats[0].text,
+                numberOfRecords:releaseData.formats[0].qty,
+                descriptions:releaseData.formats[0].descriptions
+            },
+            images:releaseData.images,
+            labels:releaseData.labels,
+            mediaCondition:releaseConditionAndPrice.mediaCondition, 
+            coverCondition:releaseConditionAndPrice.coverCondition, 
+        }
+
+        return newRecordObject;
+
+        
     }
 
 
