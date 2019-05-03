@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 const mongoose = require('mongoose');
 const mongoDB = require('./config/keys').mongoURI;
-
+const path = require('path');
 const app = express();
 
 // route vars
@@ -24,6 +24,15 @@ mongoose
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(pino);
 
+// app.get('*',(req,res, next)=>{
+//     console.log("route url: "+req.url);
+//     next();
+// })
+
+// app.get('/',(req,res) =>{
+//     res.send("SERVER IS RUNNING");
+// })
+
 //routes
 app.use('/register',registerNewUser);
 app.use('/login',login);
@@ -33,15 +42,20 @@ app.use('/search',search);
 //admin only routes
 app.use('/addRecord',addRecord);
 
+//Server static assets if in production
+//if there is a problem here start with debugging path to build folder
+//if that dosent work it may be easier to keep the server(index.js) at the root level
 
-app.get('*',(req,res, next)=>{
-    console.log("route url: "+req.url);
-    next();
-})
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('build'));
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'..','build','index.html'));
+    })
+    
+}
 
-app.get('/',(req,res) =>{
-    res.send("SERVER IS RUNNING");
-})
+
+
 
 
 const port = process.env.PORT || 3001 ;
