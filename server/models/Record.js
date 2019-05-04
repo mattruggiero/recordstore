@@ -47,10 +47,9 @@ const RecordSchema = new Schema({
     coverCondition:{
         type: String
     }, 
-    readyToDisplay: {
-        type: Boolean, 
-        default:false
-    }
+   genres:{
+       type:[String]
+   }
 
     
 });

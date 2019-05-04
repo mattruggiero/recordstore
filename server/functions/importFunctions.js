@@ -80,6 +80,7 @@ module.exports = {
                 numberOfRecords:releaseData.formats[0].qty,
                 descriptions:releaseData.formats[0].descriptions
             },
+            genres:releaseData.genres,
             images:releaseData.images,
             labels:releaseData.labels,
             mediaCondition:releaseConditionAndPrice.mediaCondition, 

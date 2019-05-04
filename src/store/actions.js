@@ -1,0 +1,4 @@
+
+
+
+export const LOAD_INVENTORY = 'LOAD_INVENTORY';
