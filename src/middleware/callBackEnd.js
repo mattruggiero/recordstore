@@ -12,7 +12,8 @@ export async function getInventory(){
         store.dispatch({
             type:actionTypes.LOAD_INVENTORY,
             payload:response.data.recordData,
-            bookKeeping: response.data.pageNumber
+            bookKeeping: response.data.pageNumber,
+            display:'Browse',
         });
         return response.data;
     }

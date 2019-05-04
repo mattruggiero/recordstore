@@ -5,6 +5,7 @@ const initialState = {
     haveData:false,
     inventory :null,
     bookKeeping:null,
+    display: 'Browse'
 };
 
 const reducer = (state = initialState, action)=>{
