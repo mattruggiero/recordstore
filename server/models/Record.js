@@ -12,8 +12,8 @@ const RecordSchema = new Schema({
     price:{
         type:String
     },
-    artists:{
-        type:[Object]
+    artist:{
+        type:String
     },
     title:{
         type:String

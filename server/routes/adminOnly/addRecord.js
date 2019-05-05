@@ -6,7 +6,7 @@ var async = require('async');
 const keys = require('../../config/keys');
 const myDiscogsUserName = keys.myDiscogsUserName;
 
-const PAGE_NUMBER = 3; 
+const PAGE_NUMBER = 1; 
 const SECONDS_TO_WAIT = 2.1;
 
 router.get('/', async (req,res)=>{

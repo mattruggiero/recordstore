@@ -20,18 +20,16 @@ mongoose
     })
     .then(()=> console.log('MongoDb Connected'))
     .catch(err=> console.log(err));
-   
+
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(pino);
 
-// app.get('*',(req,res, next)=>{
-//     console.log("route url: "+req.url);
-//     next();
-// })
 
-// app.get('/',(req,res) =>{
-//     res.send("SERVER IS RUNNING");
-// })
+
 
 //routes
 app.use('/register',registerNewUser);

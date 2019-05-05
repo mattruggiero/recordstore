@@ -2,6 +2,7 @@ import * as api from '../middleware/callBackEnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SaleItem from './SaleItem';
+import SearchForm from './SearchForm';
 
 class Browse extends Component {
     
@@ -20,7 +21,7 @@ class Browse extends Component {
             let saleItems = this.props.inventory.map(item => {
                 let saleObject = {
                     genres:item.genres,
-                    artist:item.artists[0].name,
+                    artist:item.artist,
                     price:item.price,
                     coverImage:item.images[0].uri,
                     title:item.title,
@@ -45,6 +46,7 @@ class Browse extends Component {
         
         return(  
                 <div>
+                    <SearchForm/>
                     <div>{returnValue}</div>
                 </div>
             );

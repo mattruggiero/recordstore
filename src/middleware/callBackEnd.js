@@ -20,3 +20,10 @@ export async function getInventory(){
     catch(error){return error;}
 };
 
+export async function search(searchInput){
+    let url = '/search';
+    let response = await axios({method:'post',url:url,data:{searchInput:searchInput}});
+    console.log(response);
+    
+}
+

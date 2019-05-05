@@ -72,7 +72,7 @@ module.exports = {
             trackList : releaseData.tracklist,
             releaseID: releaseData.id,
             masterID: releaseData.master_id,
-             artists: releaseData.artists,
+            artist: releaseData.artists[0].name,
             title: releaseData.title,
             notes:releaseData.notes_plaintext,
             formats:{
