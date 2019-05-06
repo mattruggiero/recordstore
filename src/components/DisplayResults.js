@@ -7,12 +7,14 @@ import * as helper from '../middleware/helperFunctions';
 class DisplayResults extends Component {
 
     handleClick = (event) => {
+        //event === the index of the record in the array in the store
         console.log(event);
         console.log(this.props.resultsToDisplay[event]);
     }
     componentDidMount(){
-       api.getResults(this.props.resultsToDisplay || null,this.props.pageNumber || 0);
+       api.getResults(this.props.resultsToDisplay || null, this.props.pageNumber);
     }
+
     render(){
         let inventoryLoaded = this.props.haveData? true:false;
         let returnValue = (<div>LOADING</div>)

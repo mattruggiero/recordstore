@@ -6,16 +6,14 @@ import store from '../index';
 
 export async function getResults(searchingForSomething,pageNumber){
     try{
-        let url = '/browseAll';
-        let postData = {searchInput:false};
-
-        if(searchingForSomething){
-            url = '/search';
-            postData = {searchInput:searchingForSomething+'',pageNumber:pageNumber};
-            
-        }
+        let url = '/getRecords';
+        let postData = searchingForSomething ?
+            {searchInput:searchingForSomething+'',pageNumber:pageNumber}:
+            {searchInput:false,pageNumber:pageNumber};
         
         let response = await axios({method: 'post',url: url,data:postData});
+        console.log(response.data);
+        if(!response.data){throw new Error('No results returned')}
         store.dispatch({
             type:actionTypes.DISPLAY_RESULTS,
             payload:response.data.recordData,
@@ -24,7 +22,9 @@ export async function getResults(searchingForSomething,pageNumber){
         });
         return response.data;
     }
-    catch(error){return error;}
+    catch(error){
+        console.log(error);
+    }
 };
 
 

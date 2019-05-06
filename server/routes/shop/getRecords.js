@@ -6,36 +6,37 @@ router.route('*').all((req,res,next)=>{
     console.log('Get Results Route Works: '+req.originalUrl);
     next();
 })
-// .post(async (req,res)=>{
-//     let searchFor = req.body.searchInput;
-//     console.log(req.body);
-//     console.log(searchFor);
-//     console.log('search worked');
-//     let records = await Record.find({$text:{$search:searchFor}}).lean()
-//     console.log(records.length);
-//     let returnObject = {recordData:records,pageNumber:0}
-//     res.send(returnObject);
-// })
-
-// // router.post('/', async (req,res) => {
-// //     //pagination
-
-// //     console.log(req.body.searchInput);
-// //     if(!req.body.searchInput)
-// //         console.log("it works as a bool")
-// //     let numberOfRecords = await Record.countDocuments();
-// //     if(!numberOfRecords){res.send("No records in store")};
-// //     let pageNumber = 0;
-// //     let numberOfResults = 10;
-// //     let totalPages = numberOfRecords/numberOfResults;
-// //     if((pageNumber > totalPages)||(pageNumber < 0)) {pageNumber = 0}
-// //     let numberToSkip = numberOfResults * pageNumber;
+.post(async (req,res)=>{
+    try{
+        let searchInput = req.body.searchInput;
+        let resultLimit = 10;
+    //let pageNumber = req.body.pageNumber;
+        let pageNumber = 3;
+        let numberOfRecords = searchInput? 
+            await Record.countDocuments({$text:{$search:searchInput}}):
+            await Record.countDocuments();
     
-// //     let records = await Record.find().limit(numberOfResults).skip(numberToSkip).lean();
-// //     //let records = await Record.find().lean();
-// //     let returnObject = {recordData:records,pageNumber:pageNumber};
-// //     res.send(returnObject);
-// // })
+        console.log(numberOfRecords);
+
+        if(!numberOfRecords){throw new Error('no records');};
+        let totalPages = numberOfRecords/resultLimit;
+
+        if(pageNumber > totalPages) {pageNumber = 1};
+        if(pageNumber < 1){pageNumber = totalPages};
+
+        let numberToSkip = resultLimit * (pageNumber-1);
+        let records = searchInput?
+            await Record.find({$text:{$search:searchInput}}).skip(numberToSkip).limit(resultLimit).lean():
+            await Record.find().limit(resultLimit).skip(numberToSkip).lean();
+
+        let returnObject = {recordData:records,pageNumber:pageNumber};
+        res.send(returnObject);
+    }
+    catch(error){
+        console.log(error)
+        res.send(false);
+    }
+})
 
 
 module.exports = router;

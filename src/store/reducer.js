@@ -4,7 +4,7 @@ import * as actionTypes from './actions';
 const initialState = {
     haveData:false,
     resultsToDisplay :null,
-    pageNumber:0,
+    pageNumber:1,
     display: 'results',
 };
 

@@ -11,7 +11,10 @@ router.route('*').all((req,res,next)=>{
     console.log(req.body);
     console.log(searchFor);
     console.log('search worked');
-    let records = await Record.find({$text:{$search:searchFor}}).lean()
+    let resultCount = await Record.count({$text:{$search:searchFor}});
+    console.log(resultCount);
+    let records = await Record.find({$text:{$search:searchFor}}).skip(0).limit(10).lean()
+    if(!records.length){console.log("NO RECORDS")}
     console.log(records.length);
     let returnObject = {recordData:records,pageNumber:0}
     res.send(returnObject);
