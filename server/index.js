@@ -12,6 +12,7 @@ const login = require('./routes/user/logIn');
 const addRecord = require('./routes/adminOnly/addRecord');
 const browseAll = require('./routes/shop/browseAll');
 const search = require('./routes/shop/search');
+const getRecords = require('./routes/shop/getRecords');
 
 mongoose
     .connect(mongoDB,{
@@ -36,6 +37,7 @@ app.use('/register',registerNewUser);
 app.use('/login',login);
 app.use('/browseAll',browseAll);
 app.use('/search',search);
+app.use('/getRecords',getRecords);
 
 //admin only routes
 app.use('/addRecord',addRecord);

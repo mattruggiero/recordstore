@@ -1,4 +1,4 @@
 
 
 
-export const LOAD_INVENTORY = 'LOAD_INVENTORY';
+export const DISPLAY_RESULTS = 'DISPLAY_RESULTS';

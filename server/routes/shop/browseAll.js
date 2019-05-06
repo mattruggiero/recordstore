@@ -7,8 +7,12 @@ const Record =require('../../models/Record');
 
 
 
-router.get('/', async (req,res) => {
+router.post('/', async (req,res) => {
     //pagination
+
+    console.log(req.body.searchInput);
+    if(!req.body.searchInput)
+        console.log("it works as a bool")
     let numberOfRecords = await Record.countDocuments();
     if(!numberOfRecords){res.send("No records in store")};
     let pageNumber = 0;

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
-import Browse from './components/Browse';
+import DisplayResults from './components/DisplayResults';
+
+import SearchForm from './components/SearchForm';
 
 class App extends Component{
   render(){
     return(
       <div>
-        <Browse/>
+        <SearchForm/>
+        <DisplayResults/>
       </div>
       )
   }

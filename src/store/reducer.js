@@ -3,20 +3,20 @@ import * as actionTypes from './actions';
 
 const initialState = {
     haveData:false,
-    inventory :null,
-    bookKeeping:null,
-    display: 'Browse'
+    resultsToDisplay :null,
+    pageNumber:0,
+    display: 'results',
 };
 
 const reducer = (state = initialState, action)=>{
     switch(action.type){
-        case actionTypes.LOAD_INVENTORY:
-        console.log('LOAD_INVENTORY WAS CALLED SWITCH WORKS');
+        case actionTypes.DISPLAY_RESULTS:
+        console.log('DISPLAY_RESULTS WAS CALLED SWITCH WORKS');
         return ({
             ...state,
-            inventory : [...action.payload],
+            resultsToDisplay : [...action.payload],
             haveData:true,
-            bookKeeping:action.bookKeeping
+            pageNumber:action.pageNumber
         })
         default: return(state);
     }

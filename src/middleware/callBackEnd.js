@@ -4,26 +4,27 @@ import store from '../index';
 
 
 
-export async function getInventory(){
+export async function getResults(searchingForSomething,pageNumber){
     try{
         let url = '/browseAll';
-        let response = await axios({method: 'get',url: url,});
-        console.log(response.data);
+        let postData = {searchInput:false};
+
+        if(searchingForSomething){
+            url = '/search';
+            postData = {searchInput:searchingForSomething+'',pageNumber:pageNumber};
+            
+        }
+        
+        let response = await axios({method: 'post',url: url,data:postData});
         store.dispatch({
-            type:actionTypes.LOAD_INVENTORY,
+            type:actionTypes.DISPLAY_RESULTS,
             payload:response.data.recordData,
-            bookKeeping: response.data.pageNumber,
-            display:'Browse',
+            pageNumber: response.data.pageNumber,
+            display:'Results',
         });
         return response.data;
     }
     catch(error){return error;}
 };
 
-export async function search(searchInput){
-    let url = '/search';
-    let response = await axios({method:'post',url:url,data:{searchInput:searchInput}});
-    console.log(response);
-    
-}
 

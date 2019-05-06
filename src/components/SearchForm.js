@@ -36,9 +36,10 @@ class SearchForm extends Component {
             })
         }
 
-        handleSubmit = (event) => {
+        handleSubmit = async (event) => {
             event.preventDefault();
-            api.search(this.state.searchInput);
+            let stuff = await api.getResults(this.state.searchInput);
+            console.log(stuff);
             
         }
 
