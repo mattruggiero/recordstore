@@ -10,16 +10,23 @@ router.route('*').all((req,res,next)=>{
     try{
         let searchInput = req.body.searchInput;
         let resultLimit = 10;
-    //let pageNumber = req.body.pageNumber;
+        //let pageNumber = req.body.pageNumber;
         let pageNumber = 3;
         let numberOfRecords = searchInput? 
-            await Record.countDocuments({$text:{$search:searchInput}}):
-            await Record.countDocuments();
+            await Record.countDocuments({$text:{$search:searchInput}}).lean():
+            await Record.countDocuments().lean();
     
         console.log(numberOfRecords);
 
-        if(!numberOfRecords){throw new Error('no records');};
+        if(!numberOfRecords && !searchInput)
+            throw new Error('no records');
+            
+        if(!numberOfRecords)
+            searchInput = false;
+
         let totalPages = numberOfRecords/resultLimit;
+        if(numberOfRecords%resultLimit)
+            totalPages++;
 
         if(pageNumber > totalPages) {pageNumber = 1};
         if(pageNumber < 1){pageNumber = totalPages};

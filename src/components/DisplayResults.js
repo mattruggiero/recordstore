@@ -11,6 +11,12 @@ class DisplayResults extends Component {
         console.log(event);
         console.log(this.props.resultsToDisplay[event]);
     }
+    handleNext = (event) => {
+        console.log("next clicked");
+    }
+    handlePrev = (event) => {
+        console.log("prev clicked");
+    }
     componentDidMount(){
        api.getResults(this.props.resultsToDisplay || null, this.props.pageNumber);
     }
@@ -32,7 +38,12 @@ class DisplayResults extends Component {
             });
             returnValue = saleItems;
         }
-        return(<div>{returnValue}</div>);
+        return(
+            <div>
+                {returnValue}
+                <button onClick = {this.handlePrev}>PREV</button>
+                <button onClick = {this.handleNext}>NEXT</button>
+            </div>);
      }
 
 }
