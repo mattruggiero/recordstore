@@ -11,10 +11,11 @@ router.get('/', (req,res) => {
 })
 .post('/', (req, res) => {
     //req.body needs to have confirmPassword field 
-    let msg = validateRegisterInput(req.body);
+    //let msg = validateRegisterInput(req.body);
+    console.log(req.body);
     
     
-    res.send(msg);
+    res.send("HELLO");
     
     // let newUser = new User({
     //     email: req.body.email,

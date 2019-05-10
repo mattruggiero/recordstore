@@ -48,7 +48,6 @@ class SearchForm extends Component {
             <Container>
                 <Form onSubmit = {this.handleSubmit}>
                 <Form.Control
-                    required = {true}
                     onChange = {this.handleTyping}
                     type = "text"
                     name = "searchInput"

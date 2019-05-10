@@ -28,4 +28,15 @@ export async function getResults(searchingForSomething,pageNumber){
     }
 };
 
+export async function registerUser(userData){
+    try{
+        let url = '/register';
+        let postData = userData;
+
+        let response = await axios({method:'post',url:url,data:postData});
+        console.log(response);
+    }
+    catch(error){console.log(error)}
+}
+
 

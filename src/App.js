@@ -4,12 +4,16 @@ import DisplayResults from './components/DisplayResults';
 
 import SearchForm from './components/SearchForm';
 
+import UserRegister from './components/UserRegister';
+
+//<SearchForm/>
+//<DisplayResults/>
+
 class App extends Component{
   render(){
     return(
       <div>
-        <SearchForm/>
-        <DisplayResults/>
+       <UserRegister/>
       </div>
       )
   }
