@@ -10,15 +10,22 @@ router.route('*').all((req,res,next)=>{
     try{
         let searchInput = req.body.searchInput;
         let resultLimit = 10;
-
         let pageNumber = req.body.pageNumber;
-        let numberOfRecords = searchInput? 
+        let numberOfRecords = 0;
+        let searchInputNotChecked = true;
+        let foundRecords;
+
+        while(searchInputNotChecked){
+            numberOfRecords = searchInput? 
             await Record.countDocuments({$text:{$search:searchInput}}):
             await Record.countDocuments();
-    
-        console.log(numberOfRecords);
-        if(!numberOfRecords){throw new Error('no records');};//still needs work
 
+            if(searchInput && !numberOfRecords){
+                foundRecords = false;
+                searchInput = null;
+            }
+            if(numberOfRecords){searchInputNotChecked = false;}
+        }
         let totalPages = numberOfRecords/resultLimit;
         let needOneMorePage = numberOfRecords%resultLimit;
         if(needOneMorePage){totalPages++;}
@@ -28,16 +35,18 @@ router.route('*').all((req,res,next)=>{
 
         let numberToSkip = resultLimit * (pageNumber-1);
         let records = searchInput?
-            await Record.find({$text:{$search:searchInput}}).skip(numberToSkip).limit(resultLimit).lean():
-            await Record.find().limit(resultLimit).skip(numberToSkip).lean();
+        await Record.find({$text:{$search:searchInput}}).skip(numberToSkip).limit(resultLimit).lean():
+        await Record.find().limit(resultLimit).skip(numberToSkip).lean();
 
-        let returnObject = {recordData:records,pageNumber:pageNumber};
+        let returnObject = {recordData:records,pageNumber:pageNumber,foundRecords:foundRecords};
         res.send(returnObject);
     }
     catch(error){
         console.log(error)
         res.send(false);
     }
+
+
 })
 
 
