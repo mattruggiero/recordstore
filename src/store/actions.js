@@ -1,4 +1,4 @@
 
 
-
+export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT';
 export const DISPLAY_RESULTS = 'DISPLAY_RESULTS';

@@ -16,6 +16,7 @@ export async function getResults(searchingForSomething,pageNumber){
         if(!response.data){throw new Error('No results returned')}
         store.dispatch({
             type:actionTypes.DISPLAY_RESULTS,
+            searchInput:searchingForSomething,
             payload:response.data.recordData,
             pageNumber: response.data.pageNumber,
             display:'Results',

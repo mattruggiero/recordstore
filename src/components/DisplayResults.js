@@ -44,6 +44,7 @@ class DisplayResults extends Component {
 
 const mapStateToProps = state => {
     return{
+        searchInput:state.searchInput,
         resultsToDisplay:state.resultsToDisplay,
         haveData:state.haveData,
         pageNumber:state.pageNumber,

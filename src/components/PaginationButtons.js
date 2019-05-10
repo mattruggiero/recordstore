@@ -13,7 +13,9 @@ class PaginationButtons extends Component{
     handleClick = (event) => {
         //refactor once search input is added to store
         let numberToAdd = event.target.id === 'prev'? -1:1;
-        call.getResults(event.target.searchInput,this.props.pageNumber + numberToAdd);
+        console.log("numberToAdd: ",numberToAdd);
+        console.log("this.props.pageNumber: ",this.props.pageNumber);
+        call.getResults(this.props.searchInput,this.props.pageNumber + numberToAdd);
     }
 
 
@@ -47,7 +49,7 @@ class PaginationButtons extends Component{
 
 const mapStateToProps = state => {
     return{
-        haveData:state.haveData,
+        searchInput:state.searchInput,
         pageNumber:state.pageNumber,
     };
 };

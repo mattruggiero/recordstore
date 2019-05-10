@@ -2,6 +2,7 @@
 import * as actionTypes from './actions';
 
 const initialState = {
+    searchInput: null,
     haveData:false,
     resultsToDisplay :null,
     pageNumber:1,
@@ -11,13 +12,19 @@ const initialState = {
 const reducer = (state = initialState, action)=>{
     switch(action.type){
         case actionTypes.DISPLAY_RESULTS:
-        console.log('DISPLAY_RESULTS WAS CALLED SWITCH WORKS');
-        return ({
-            ...state,
-            resultsToDisplay : [...action.payload],
-            haveData:true,
-            pageNumber:action.pageNumber
-        })
+            return ({
+                ...state,
+                searchInput: action.searchInput,
+                resultsToDisplay : [...action.payload],
+                haveData:true,
+                pageNumber:action.pageNumber
+            })
+        case actionTypes.SET_SEARCH_INPUT:
+            console.log("SET_SEARCH_INPUT: works");
+            return({
+                ...state,
+                searchInput: action.searchInput,
+            })
         default: return(state);
     }
 }
