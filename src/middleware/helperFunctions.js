@@ -1,8 +1,3 @@
-
-
-
-
-
 export function getTransformedResult(result,storeIndex){
     let resultObject = {
         artist:result.artist,

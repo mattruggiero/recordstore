@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SaleItem from './SaleItem';
 import * as helper from '../middleware/helperFunctions';
+import PaginationButtons from './PaginationButtons';
 
 class DisplayResults extends Component {
 
@@ -10,12 +11,6 @@ class DisplayResults extends Component {
         //event === the index of the record in the array in the store
         console.log(event);
         console.log(this.props.resultsToDisplay[event]);
-    }
-    handleNext = (event) => {
-        console.log("next clicked");
-    }
-    handlePrev = (event) => {
-        console.log("prev clicked");
     }
     componentDidMount(){
        api.getResults(this.props.resultsToDisplay || null, this.props.pageNumber);
@@ -36,14 +31,12 @@ class DisplayResults extends Component {
                         </button>
                         )
             });
-            returnValue = saleItems;
-        }
-        return(
-            <div>
-                {returnValue}
-                <button onClick = {this.handlePrev}>PREV</button>
-                <button onClick = {this.handleNext}>NEXT</button>
+            returnValue = (<div>
+                {saleItems}
+                <PaginationButtons/>
             </div>);
+        }
+        return(<div>{returnValue}</div>);
      }
 
 }
