@@ -5,15 +5,18 @@ import DisplayResults from './components/DisplayResults';
 import SearchForm from './components/SearchForm';
 
 import UserRegister from './components/UserRegister';
+import UserLogin from './components/UserLogin';
 
-//<SearchForm/>
-//<DisplayResults/>
 
+
+/* <SearchForm/>
+<DisplayResults/> */
+//<UserRegister/>
 class App extends Component{
   render(){
     return(
       <div>
-       <UserRegister/>
+       <UserLogin/>
       </div>
       )
   }
