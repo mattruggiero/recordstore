@@ -39,4 +39,17 @@ export async function registerUser(userData){
     catch(error){console.log(error)}
 }
 
+export async function login(userLoginData){
+    try{
+        let url = '/login';
+        let postData = userLoginData;
+
+        let response = await axios({method: 'post',url:url,data:postData});
+        console.log(response);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 

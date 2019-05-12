@@ -6,20 +6,17 @@ import * as api from '../middleware/callBackEnd';
 
 
 class UserLogin extends Component {
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit = (event) => {
+    
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("LOGIN HANDLE SUBMIT");
         let loginJSON = {
             email: event.target.email.value, 
             password: event.target.password.value
         }
-        console.log(loginJSON);
+        let loggedIn = await api.login(loginJSON);
+        console.log(loggedIn);
     }
+
     render(){
         return(
             <Container>
