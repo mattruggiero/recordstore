@@ -16,46 +16,74 @@ router.get('/',passport.authenticate('jwt',{ session: false}),(req,res)=>{
         userName:req.body.userName
     })
 })
-.post((req,res) => {
-    const { errors, isValid } = validateLoginInput(req.body);
-    if(!isValid){return res.json(errors)}
+.post('/', async (req,res) => {
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
 
+        let user = await User.findOne ({ email });
+        if(!user){return res.json({success:false,errors:"user not found"})}
 
-    const email = req.body.email;
-    const password = req.body.password;
+        let passwordMatches = await bcrypt.compare(password, user.password);
+        if(passwordMatches){
+            const payload = {
+                id: user.id, 
+                email: user.email, 
+                userName: user.userName
+            }
 
-    User.findOne({ email }).then(user=>{
-        if(!user){
-            return res.json({
-                success:false,
-                error: "invalid credentials"
-            });
+            jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (error,token) =>{
+                res.json({success:true,token: 'Bearer ' + token});
+            })
         }
+        else{ res.json({success:false,error:"invalid credentials"})}
+    }
+    catch(error){res.json({success:false,error})}
 
-        bcrypt.compare(password, user.password).then(passwordMatches => {
-            if(passwordMatches){
-                const payload = {
-                    id: user.id, 
-                    email:user.email,
-                    userName:user.userName,
-                };
 
-                jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (err,token)=>{
-                    res.json({
-                        success: true,
-                        token: 'Bearer ' + token
-                    })
-                })
-            }
-            else{
-                res.json({
-                    success:false,
-                    error: "invalid credentials"
-                })
-            }
-        })
-    })
 })
 
+module.exports =  router;
+// .post((req,res) => {
+//     const { errors, isValid } = validateLoginInput(req.body);
+//     if(!isValid){return res.json(errors)}
 
-module.exports = router;
+
+//     const email = req.body.email;
+//     const password = req.body.password;
+
+//     User.findOne({ email }).then(user=>{
+//         if(!user){
+//             return res.json({
+//                 success:false,
+//                 error: "invalid credentials"
+//             });
+//         }
+
+//         bcrypt.compare(password, user.password).then(passwordMatches => {
+//             if(passwordMatches){
+//                 const payload = {
+//                     id: user.id, 
+//                     email:user.email,
+//                     userName:user.userName,
+//                 };
+
+//                 jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (err,token)=>{
+//                     res.json({
+//                         success: true,
+//                         token: 'Bearer ' + token
+//                     })
+//                 })
+//             }
+//             else{
+//                 res.json({
+//                     success:false,
+//                     error: "invalid credentials"
+//                 })
+//             }
+//         })
+//     })
+// })
+
+
+//module.exports = router;
