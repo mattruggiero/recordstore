@@ -1,5 +1,6 @@
 
 import * as actionTypes from './actions';
+import * as helper from '../middleware/helperFunctions';
 
 const initialState = {
     searchInput: null,
@@ -7,6 +8,8 @@ const initialState = {
     resultsToDisplay :null,
     pageNumber:1,
     display: 'results',
+    isAuthenticated:false,
+    user:{}
 };
 
 const reducer = (state = initialState, action)=>{
@@ -20,11 +23,17 @@ const reducer = (state = initialState, action)=>{
                 pageNumber:action.pageNumber
             })
         case actionTypes.SET_SEARCH_INPUT:
-            console.log("SET_SEARCH_INPUT: works");
             return({
                 ...state,
                 searchInput: action.searchInput,
             })
+        case actionTypes.SET_CURRENT_USER:
+        console.log("set current user called");
+            return {
+                ...state,
+                isAuthenticated: !helper.isEmpty(action.payload),
+                user: action.payload
+            }
         default: return(state);
     }
 }

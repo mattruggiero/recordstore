@@ -10,3 +10,11 @@ export function getTransformedResult(result,storeIndex){
     return resultObject;
 
 }
+
+export  function isEmpty(value){
+    let returnValue = value === undefined || value === null ||
+    (typeof value === 'object' && Object.keys(value).length === 0)||
+    (typeof value === 'string' && value.trim().length === 0);
+
+    return returnValue;
+}

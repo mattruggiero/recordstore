@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SaleItem from './SaleItem';
 import * as helper from '../middleware/helperFunctions';
 import PaginationButtons from './PaginationButtons';
+import SearchForm from './SearchForm';
 
 class DisplayResults extends Component {
 
@@ -36,7 +37,11 @@ class DisplayResults extends Component {
                 <PaginationButtons/>
             </div>);
         }
-        return(<div>{returnValue}</div>);
+        return(
+            <div>
+                {returnValue}
+            </div>
+            );
      }
 
 }

@@ -46,10 +46,17 @@ export async function login(userLoginData){
 
         let response = await axios({method: 'post',url:url,data:postData});
         console.log(response);
+
+        store.dispatch({
+            type:actionTypes.SET_CURRENT_USER,
+            payload:postData.email,
+        })
     }
     catch(error){
         console.log(error);
     }
 }
+
+
 
 

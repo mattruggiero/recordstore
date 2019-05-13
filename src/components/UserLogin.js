@@ -3,9 +3,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import * as api from '../middleware/callBackEnd';
+import { connect } from 'react-redux';
 
 
 class UserLogin extends Component {
+    componentDidMount(){
+        console.log(this.props.user);
+        console.log(this.props.auth);
+    }
     
     handleSubmit = async (event) => {
         event.preventDefault();
@@ -36,4 +41,12 @@ class UserLogin extends Component {
 }
 
 
-export default UserLogin;
+
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    user:state.user
+})
+
+
+export default connect(mapStateToProps)(UserLogin);
