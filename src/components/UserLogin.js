@@ -8,8 +8,15 @@ import { connect } from 'react-redux';
 
 class UserLogin extends Component {
     componentDidMount(){
-        console.log(this.props.user);
-        console.log(this.props.auth);
+        if(this.props.auth){
+            this.context.history.push('/register');
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.auth){
+            this.context.history.push('/register');
+        }
     }
     
     handleSubmit = async (event) => {
@@ -20,6 +27,7 @@ class UserLogin extends Component {
         }
         let loggedIn = await api.login(loginJSON);
         console.log(loggedIn);
+      
     }
 
     render(){
@@ -44,7 +52,7 @@ class UserLogin extends Component {
 
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    auth: state.isAuthenticated,
     user:state.user
 })
 
