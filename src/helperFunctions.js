@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export function getTransformedResult(result,storeIndex){
     let resultObject = {
         artist:result.artist,
@@ -17,4 +19,12 @@ export  function isEmpty(value){
     (typeof value === 'string' && value.trim().length === 0);
 
     return returnValue;
+}
+
+
+export function setAuthToken(token){
+    if(token)
+        Axios.defaults.headers.common['Authorization'] = token;
+    else
+        delete Axios.defaults.headers.common['Authorization'];
 }

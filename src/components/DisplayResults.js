@@ -1,30 +1,29 @@
-import * as api from '../middleware/callBackEnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SaleItem from './SaleItem';
-import * as helper from '../middleware/helperFunctions';
+import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
-import SearchForm from './SearchForm';
+import { setSearchResults } from '../actions/inventoryActions';
 
 class DisplayResults extends Component {
 
     handleClick = (event) => {
-        //event === the index of the record in the array in the store
         console.log(event);
-        console.log(this.props.resultsToDisplay[event]);
+        console.log(this.props.inventory.resultsToDisplay[event]);
     }
     componentDidMount(){
-       api.getResults(this.props.resultsToDisplay || null, this.props.pageNumber);
+       setSearchResults(this.props.inventory.resultsToDisplay || null, 
+            this.props.inventory.pageNumber);
     }
 
     render(){
-        let inventoryLoaded = this.props.haveData? true:false;
+        let inventoryLoaded = this.props.inventory.haveData? true:false;
         let returnValue = (<div>LOADING</div>)
         if(inventoryLoaded){
-            if(this.props.resultsToDisplay.length === 0){console.log("No Results To Display")}
+            if(this.props.inventory.resultsToDisplay.length === 0){console.log("No Results To Display")}
             
-            let saleItems = this.props.resultsToDisplay.map(item => {
-                let storeIndex = this.props.resultsToDisplay.indexOf(item);
+            let saleItems = this.props.inventory.resultsToDisplay.map(item => {
+                let storeIndex = this.props.inventory.resultsToDisplay.indexOf(item);
                 let transformedResult = helper.getTransformedResult(item,storeIndex);
                 return(
                         <button onClick = {this.handleClick.bind(this,storeIndex)} key = {storeIndex}>
@@ -32,10 +31,11 @@ class DisplayResults extends Component {
                         </button>
                         )
             });
-            returnValue = (<div>
-                {saleItems}
-                <PaginationButtons/>
-            </div>);
+            returnValue = (
+                <div>
+                    {saleItems}
+                    <PaginationButtons/>
+                </div>);
         }
         return(
             <div>
@@ -49,11 +49,7 @@ class DisplayResults extends Component {
 
 const mapStateToProps = state => {
     return{
-        searchInput:state.searchInput,
-        resultsToDisplay:state.resultsToDisplay,
-        haveData:state.haveData,
-        pageNumber:state.pageNumber,
-        display:state.display
+        inventory:state.inventory
     };
 };
 

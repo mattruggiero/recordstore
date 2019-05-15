@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import * as api from '../middleware/callBackEnd';
+import { registerUser } from '../actions/authActions';
 
 
 let registrationFields = [
@@ -26,6 +26,7 @@ class UserRegister extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    //needs error handeling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     handleSubmit = (event) => {
         event.preventDefault();
         let userData = {};
@@ -36,8 +37,7 @@ class UserRegister extends Component {
             let value = event.target[i].value;
             userData[key] = value;
         }
-        console.log(userData);
-        api.registerUser(userData);
+        registerUser(userData);
     }
     render(){
         let formInputs = registrationFields.map(each =>{

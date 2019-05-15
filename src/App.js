@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 import DisplayResults from './components/DisplayResults';
-
-import SearchForm from './components/SearchForm';
-
 import UserRegister from './components/UserRegister';
 import UserLogin from './components/UserLogin';
 import TheNavbar from './components/layout/TheNavbar';
 
 
+import { Provider } from 'react-redux';
+import store from './store';
 
-/* <SearchForm/>
-<DisplayResults/> */
-//<UserRegister/>
+
+
+
 class App extends Component{
   render(){
     return(
+      <Provider store = {store}>
       <Router>
         <div>
           <TheNavbar/>
@@ -28,6 +28,7 @@ class App extends Component{
           
         </div>
       </Router>
+      </Provider>
       )
   }
 }

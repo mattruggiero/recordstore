@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 class TheNavbar extends Component {
     render(){
 
-        let loggedIn = this.props.auth;
+        let loggedIn = this.props.auth.isAuthenticated;
         
         let displayCart = (
             <Nav className = 'mr-auto'>
@@ -57,7 +57,7 @@ class TheNavbar extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.isAuthenticated,
+    auth: state.auth,
 })
 
 

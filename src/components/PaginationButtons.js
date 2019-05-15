@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as call from '../middleware/callBackEnd';
+import { setSearchResults } from '../actions/inventoryActions';
 
 
 class PaginationButtons extends Component{
-    constructor(props){
-        super(props);
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
+    
     handleClick = (event) => {
-        //refactor once search input is added to store
         let numberToAdd = event.target.id === 'prev'? -1:1;
-        console.log("numberToAdd: ",numberToAdd);
-        console.log("this.props.pageNumber: ",this.props.pageNumber);
-        call.getResults(this.props.searchInput,this.props.pageNumber + numberToAdd);
+        setSearchResults(this.props.searchInput,this.props.pageNumber + numberToAdd);
     }
-
-
+    
     render(){
         return(
             <div>
@@ -49,8 +40,8 @@ class PaginationButtons extends Component{
 
 const mapStateToProps = state => {
     return{
-        searchInput:state.searchInput,
-        pageNumber:state.pageNumber,
+        searchInput:state.inventory.searchInput,
+        pageNumber:state.inventory.pageNumber,
     };
 };
 
