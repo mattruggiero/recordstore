@@ -5,7 +5,17 @@ import Container from 'react-bootstrap/Container';
 import { login } from '../actions/authActions';
 import { connect } from 'react-redux';
 
+
 class UserLogin extends Component {
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.auth.isAuthenticated){
+            window.location.href = '/';
+        }
+        if(nextProps.errors){
+            console.log(nextProps.errors);
+        }
+    }
     handleSubmit =  (event) => {
         event.preventDefault();
         let loginJSON = {
@@ -13,6 +23,9 @@ class UserLogin extends Component {
             password: event.target.password.value
         }
         login(loginJSON);
+        //window.location.href = '/';
+        //still needs error handler
+        
     }
 
     render(){

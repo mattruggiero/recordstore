@@ -8,11 +8,17 @@ const validateRegisterInput = require('../../validator/validateNewUser');
 
 
 router.post('/', async (req, res) => {
+    
+    const { errors ,isValid } = validateRegisterInput(req.body);
+    console.log(errors);
+    if(!isValid){return res.status(400).json(errors)}
+
     let isUserAlreadyInDB = await User.findOne({email:req.body.email}).lean();
-    if(isUserAlreadyInDB){return res.send({error:"user already in DB"})}
+    if(isUserAlreadyInDB){
+        errors.email = 'Email already exists';
+        return res.status(400).json(errors);
+    }
     
-    
-    let msg = validateRegisterInput(req.body);
     let newUser = new User({
         email: req.body.email,
         password:req.body.password,
@@ -38,7 +44,7 @@ router.post('/', async (req, res) => {
                 
         })
     })
-    res.send(msg);
+    res.send('all good');
   
     
 })

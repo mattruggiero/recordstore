@@ -3,18 +3,30 @@ import { Nav, Navbar, NavItem} from 'react-bootstrap';
 import SearchForm from '../SearchForm';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
-
+//window.location.href = '/login';
 class TheNavbar extends Component {
+    onClick = (event) => {
+        logoutUser();
+        window.location.href = '/login';
+    }
     render(){
 
-        let loggedIn = this.props.auth.isAuthenticated;
+        let haveToken = this.props.auth.isAuthenticated;
+       
         
-        let displayCart = (
+        
+        let loggedIn = (
             <Nav className = 'mr-auto'>
             <LinkContainer  to = '/cart'>
             <NavItem>Cart</NavItem>
             </LinkContainer>
+            <NavItem>
+                <button onClick = {this.onClick}>
+                    Logout
+                </button>
+            </NavItem>
             </Nav>
         );
         let notLoggedIn = (
@@ -30,7 +42,7 @@ class TheNavbar extends Component {
 
         );
 
-        let navsToDisplay = loggedIn? displayCart:notLoggedIn;
+        let navsToDisplay = haveToken? loggedIn:notLoggedIn;
         return(
             
             <Navbar bg='primary'  >

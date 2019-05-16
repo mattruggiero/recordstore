@@ -5,14 +5,15 @@ module.exports = function validateRegisterInput(userRegistrationForm){
    let errors = {};
 
     for (let field in userRegistrationForm){
-        userRegistrationForm[field] = validator.trim(userRegistrationForm[field]);//this might be taken care of in isEmpty
+        userRegistrationForm[field] = validator.trim(userRegistrationForm[field]);
         if(field !== 'aptNumber' && isEmpty(userRegistrationForm[field])){
             errors.all = 'Missing required fields!!';
-            return errors;
         }
     }
     const isLengthOptions  = {min:2, max:30};
     const isLengthMessage = "must be between 2 and 30 characters";
+
+    //location fields not validated very well, hoping that I can remove them after paypal is added
 
     if(!validator.isLength(userRegistrationForm.firstName, isLengthOptions))
         errors.firstName = "First name "+isLengthMessage;
@@ -26,6 +27,7 @@ module.exports = function validateRegisterInput(userRegistrationForm){
         errors.email = "Not a valid email address";
     if(!validator.equals(userRegistrationForm.password,userRegistrationForm.confirmPassword))
         errors.password = "Password's do not match";
+    console.log(errors);
 
     return {
         errors:errors, 

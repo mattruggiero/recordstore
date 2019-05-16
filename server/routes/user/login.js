@@ -18,6 +18,10 @@ router.get('/',passport.authenticate('jwt',{ session: false}),(req,res)=>{
 })
 .post('/', async (req,res) => {
     try{
+        const { errors, isValid } = validateLoginInput(req.body);
+        console.log(errors);
+        if(!isValid){return res.status(400).json(errors)};
+
         const email = req.body.email;
         const password = req.body.password;
 
