@@ -4,12 +4,16 @@ import SaleItem from './SaleItem';
 import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
 import { setSearchResults } from '../actions/inventoryActions';
+import { setCart } from '../actions/cartActions';
 
 class DisplayResults extends Component {
 
     handleClick = (event) => {
+        let recordDBID = this.props.inventory.resultsToDisplay[event]._id;
         console.log(event);
-        console.log(this.props.inventory.resultsToDisplay[event]);
+        console.log(this.props.inventory.resultsToDisplay[event]._id);
+        setCart(recordDBID);
+
     }
     componentDidMount(){
        setSearchResults(this.props.inventory.resultsToDisplay || null, 

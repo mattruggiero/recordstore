@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
                 
         })
     })
-    res.send('all good');
+    res.json({email:newUser.email,password:req.body.password});
   
     
 })

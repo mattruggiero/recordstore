@@ -46,8 +46,11 @@ const UserSchema = new Schema({
     country: {
         type: String, 
         required: true,
-    }
+    },
     //STILL NEED CART
+    cart: {
+        type:[Object]
+    }
     
 });
 // eslint-disable-next-line no-undef

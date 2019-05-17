@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { registerUser } from '../actions/authActions';
+import { connect } from 'react-redux';
 
 
 let registrationFields = [
@@ -26,7 +27,7 @@ class UserRegister extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    //needs error handeling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
     handleSubmit = (event) => {
         event.preventDefault();
         let userData = {};
@@ -60,5 +61,8 @@ class UserRegister extends Component {
     }
 }
 
-
-export default UserRegister;
+const mapStateToProps = state => ({
+    auth:state.auth,
+    errors:state.errors,
+})
+export default connect(mapStateToProps)(UserRegister);
