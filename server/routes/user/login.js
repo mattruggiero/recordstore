@@ -33,10 +33,14 @@ router.get('/',passport.authenticate('jwt',{ session: false}),(req,res)=>{
             const payload = {
                 id: user.id, 
                 email: user.email, 
-                userName: user.userName
+                userName: user.userName,
+                //app does not like cart being here for some reason
+                //cart:user.cart
+
             }
 
             jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (error,token) =>{
+                if(error){console.log(error)}
                 res.json({success:true,token: 'Bearer ' + token});
             })
         }

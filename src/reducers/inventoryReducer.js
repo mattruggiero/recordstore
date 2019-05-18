@@ -1,10 +1,11 @@
-import { SET_SEARCH_RESULTS } from '../actions/types';
+import { SET_SEARCH_RESULTS, SET_SELECTED } from '../actions/types';
 
 const initialState = {
     searchInput: null,
     haveData:false,
     resultsToDisplay:null,
     pageNumber:1,
+    selected:null,
 }
 
 export default function(state = initialState, action){
@@ -16,6 +17,11 @@ export default function(state = initialState, action){
                 resultsToDisplay: [...action.payload],
                 haveData:true,
                 pageNumber:action.pageNumber
+            })
+        case SET_SELECTED:
+            return({
+                ...state,
+                selected:action.payload
             })
     default:
         return state;

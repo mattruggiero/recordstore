@@ -4,14 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { login } from '../actions/authActions';
 import { connect } from 'react-redux';
+import { setCart } from '../actions/cartActions';
 
 
 class UserLogin extends Component {
-
-
     componentWillReceiveProps(nextProps){
         if(nextProps.auth.isAuthenticated){
-            window.location.href = '/';
+            setCart();
+            this.props.history.push('/');
         }
         if(nextProps.errors){
             console.log(nextProps.errors);

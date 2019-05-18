@@ -3,23 +3,24 @@ import { connect } from 'react-redux';
 import SaleItem from './SaleItem';
 import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
-import { setSearchResults } from '../actions/inventoryActions';
+import { setSearchResults, setSelected } from '../actions/inventoryActions';
 import { setCart } from '../actions/cartActions';
 
 class DisplayResults extends Component {
-
+    
+    componentDidMount(){
+        setSearchResults(this.props.inventory.resultsToDisplay || null, 
+             this.props.inventory.pageNumber);
+    }
+    
     handleClick = (event) => {
         let recordDBID = this.props.inventory.resultsToDisplay[event]._id;
         console.log(event);
-        console.log(this.props.inventory.resultsToDisplay[event]._id);
-        setCart(recordDBID);
-
+        let selectedRecord = this.props.inventory.resultsToDisplay[event];
+        setSelected(selectedRecord);
+        this.props.history.push('/displayOne');
     }
-    componentDidMount(){
-       setSearchResults(this.props.inventory.resultsToDisplay || null, 
-            this.props.inventory.pageNumber);
-    }
-
+ 
     render(){
         let inventoryLoaded = this.props.inventory.haveData? true:false;
         let returnValue = (<div>LOADING</div>)

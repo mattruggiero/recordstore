@@ -9,6 +9,10 @@ export function setCart(recordDBID){
     axios({method:'post', url:url,data:postData})
         .then(response => {
             console.log(response);
+            store.dispatch({
+                type:SET_CART,
+                payload:response.data,
+            })
         })
 
 

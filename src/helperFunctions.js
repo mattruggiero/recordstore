@@ -1,4 +1,6 @@
 import Axios from "axios";
+import { Row, Col } from 'react-bootstrap';
+import React from 'react';
 
 export function getTransformedResult(result,storeIndex){
     let resultObject = {
@@ -27,4 +29,25 @@ export function setAuthToken(token){
         Axios.defaults.headers.common['Authorization'] = token;
     else
         delete Axios.defaults.headers.common['Authorization'];
+}
+
+export function formatTracklist(arrayOfTracks){
+    let returnValue = arrayOfTracks.map(each =>{
+        let i = 0;
+        if(each.type_ === 'heading'){
+            return(
+                <Row key = {Math.random()*(++i)}>
+                    <Col><h2>{each.title}</h2></Col>
+                </Row>
+            )
+        }
+        return(
+            <Row key = {Math.random() * (++i)}>
+                <Col>{each.title}</Col>
+                <Col></Col>
+                <Col>{each.duration || 'Not Listed' }</Col>
+            </Row>
+        )
+    })
+    return returnValue;
 }

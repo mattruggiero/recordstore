@@ -36,8 +36,7 @@ router.post('/', async (req,res)=>{
         let user = await User.findOneAndUpdate({email:userEmail},{$push: {cart:record}})
 
         console.log("added to cart  ", user.cart.length);
-        //should return cart and store in state here
-        res.send('done');
+        res.send(user.cart);
     }
     catch(error){console.log(error);}
 })
@@ -52,7 +51,7 @@ router.post('/', async (req,res)=>{
         let user = await User.findOneAndUpdate({email:userEmail}, {$pullAll:{cart:[record]}});
 
         console.log('removed from cart: ', user.cart.length);
-        res.send('done');
+        res.send(user.cart);
     }
     catch(error){console.log(error);}
 })
@@ -64,7 +63,7 @@ router.post('/', async (req,res)=>{
         let user = await User.findOneAndUpdate({email:userEmail},{$set:{cart:[]}});
 
         console.log("emptied cart:  ",user.cart.length);
-        res.send('done');
+        res.send(user.cart);
     }
     catch(error){console.log(error);}
 })

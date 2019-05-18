@@ -7,6 +7,7 @@ import DisplayResults from './components/DisplayResults';
 import UserRegister from './components/UserRegister';
 import UserLogin from './components/UserLogin';
 import TheNavbar from './components/layout/TheNavbar';
+import DisplayOne from './components/DisplayOne';
 
 
 import { Provider } from 'react-redux';
@@ -14,22 +15,23 @@ import { SET_CURRENT_USER } from './actions/types';
 import store from './store';
 import { setAuthToken } from './helperFunctions';
 import { logoutUser } from './actions/authActions';
+import { setCart } from './actions/cartActions';
 
 //check for token
 if(localStorage.jwtToken){
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch({
-    type:SET_CURRENT_USER,
-    payload: decoded
-  });
-  
   //check for expired token 
   const currentTime = Date.now()/1000;
   if(decoded.exp < currentTime){
     store.dispatch(logoutUser());
     window.location.href = '/login';
   }
+  store.dispatch({
+    type:SET_CURRENT_USER,
+    payload: decoded
+  });
+  setCart();
 }
 
 
@@ -44,6 +46,7 @@ class App extends Component{
           <Route exact path = "/login" component = { UserLogin }/>
           <Route exact path = "/register" component = { UserRegister }/>
           <Route exact path = "/" component = { DisplayResults }/>
+          <Route exact path = "/displayOne" component = { DisplayOne }/>
 
           
         </div>
