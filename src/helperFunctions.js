@@ -12,9 +12,7 @@ export function getTransformedResult(result,storeIndex){
         storeIndex:storeIndex
     }
     return resultObject;
-
 }
-
 export  function isEmpty(value){
     let returnValue = value === undefined || value === null ||
     (typeof value === 'object' && Object.keys(value).length === 0)||
@@ -22,15 +20,12 @@ export  function isEmpty(value){
 
     return returnValue;
 }
-
-
 export function setAuthToken(token){
     if(token)
         Axios.defaults.headers.common['Authorization'] = token;
     else
         delete Axios.defaults.headers.common['Authorization'];
 }
-
 export function formatTracklist(arrayOfTracks){
     let returnValue = arrayOfTracks.map(each =>{
         let i = 0;
