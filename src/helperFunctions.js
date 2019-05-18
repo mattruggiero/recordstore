@@ -2,6 +2,7 @@ import Axios from "axios";
 import { Row, Col } from 'react-bootstrap';
 import React from 'react';
 
+
 export function getTransformedResult(result,storeIndex){
     let resultObject = {
         artist:result.artist,
@@ -44,5 +45,21 @@ export function formatTracklist(arrayOfTracks){
             </Row>
         )
     })
+    return returnValue;
+}
+
+export const hasImage = (props) => {
+    let returnValue = [{src:'../public/disc.png'}];
+    if(props){
+        returnValue = props.map(each => {
+            return({
+                src:each.uri,
+                thumbnail: each.uri,
+                thumbnailWidth: (each.width)/2,
+                thumbnailHeight: (each.height)/2,
+
+            })
+        })
+    }
     return returnValue;
 }

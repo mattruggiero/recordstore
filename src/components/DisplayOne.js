@@ -9,7 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Image from 'react-bootstrap/Image';
 import Gallery from 'react-grid-gallery';
 
-import { formatTracklist } from '../helperFunctions';
+import { formatTracklist, hasImage } from '../helperFunctions';
 
 
 class DisplayOne extends Component {
@@ -21,6 +21,8 @@ class DisplayOne extends Component {
         
         let record = this.props.record;
         let tracks = formatTracklist(record.trackList);
+        let img = hasImage(record.images);
+        let grid = (img.length -1 ? <Gallery images = {img}/>:'No Pictures to Display');
         return(
             <div>
                 <Container>
@@ -54,9 +56,10 @@ class DisplayOne extends Component {
                             <Col>{record.notes}</Col>
                         </Row>
                         </Tab>
-                        <Row>
-
-                        </Row>
+                        <Tab eventKey = 'Pictures' title = 'Pictures'>
+                            {grid}
+                        </Tab>
+                       
 
                         </Tabs>
                         </Col>
