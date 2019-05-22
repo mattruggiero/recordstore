@@ -9,7 +9,7 @@ router.route('*').all((req,res,next)=>{
 .post(async (req,res)=>{
     try{
         let searchInput = req.body.searchInput;
-        let resultLimit = 10;
+        let resultLimit = 12;
         let pageNumber = req.body.pageNumber;
         let numberOfRecords = 0;
         let searchInputNotChecked = true;

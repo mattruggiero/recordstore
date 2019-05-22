@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setSearchResults } from '../actions/inventoryActions';
+import { Container, Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
 
 
 class PaginationButtons extends Component{
     
+    //need to make this focus on top of page
     handleClick = (event) => {
         let numberToAdd = event.target.id === 'prev'? -1:1;
         setSearchResults(this.props.searchInput,this.props.pageNumber + numberToAdd);
@@ -12,20 +14,27 @@ class PaginationButtons extends Component{
     
     render(){
         return(
-            <div>
-                <button 
-                    onClick = {this.handleClick} 
-                    id = "prev"
-                    searchinput = {this.props.searchInput}>
-                    PREV
-                    </button>
-                <button 
-                    onClick = {this.handleClick} 
-                    id = "next"
-                    searchinput = {this.props.searchInput}>
-                    NEXT
-                    </button>
-            </div>
+            <ButtonToolbar>
+            <Col>
+            <Button 
+                size = "lg" block
+                onClick = {this.handleClick} 
+                id = "prev"
+                searchinput = {this.props.searchInput}>
+                PREV
+            </Button>
+            </Col>
+            <Col>
+            <Button 
+                size = "lg" block
+                onClick = {this.handleClick} 
+                id = "next"
+                searchinput = {this.props.searchInput}>
+                NEXT
+            </Button>
+            </Col>
+            </ButtonToolbar>
+           
         )
     }
 }

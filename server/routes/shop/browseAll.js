@@ -16,7 +16,7 @@ router.post('/', async (req,res) => {
     let numberOfRecords = await Record.countDocuments();
     if(!numberOfRecords){res.send("No records in store")};
     let pageNumber = 0;
-    let numberOfResults = 10;
+    let numberOfResults = 12;
     let totalPages = numberOfRecords/numberOfResults;
     if((pageNumber > totalPages)||(pageNumber < 0)) {pageNumber = 0}
     let numberToSkip = numberOfResults * pageNumber;

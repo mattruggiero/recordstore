@@ -5,6 +5,7 @@ import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
 import { setSearchResults, setSelected } from '../actions/inventoryActions';
 import { setCart } from '../actions/cartActions';
+import { Row, Col, Container, Card, Button, CardColumns } from 'react-bootstrap';
 
 class DisplayResults extends Component {
     
@@ -30,16 +31,29 @@ class DisplayResults extends Component {
             let saleItems = this.props.inventory.resultsToDisplay.map(item => {
                 let storeIndex = this.props.inventory.resultsToDisplay.indexOf(item);
                 let transformedResult = helper.getTransformedResult(item,storeIndex);
+          
                 return(
-                        <button onClick = {this.handleClick.bind(this,storeIndex)} key = {storeIndex}>
-                            <SaleItem saleObject = {transformedResult}/>
-                        </button>
-                        )
+                    <Col>
+                    <Card style = {{width: '21rem'}} border = "dark" >
+                    <Card.Img variant="top" src={transformedResult.coverImage}/>
+                    <Card.Body>
+                        <Card.Title>{transformedResult.artist}</Card.Title>
+                        <Card.Text>{transformedResult.title}</Card.Text>
+                        <Button onClick = {this.handleClick.bind(this,storeIndex)}>View</Button>
+                        <Card.Footer>Price: ${transformedResult.price}</Card.Footer>
+                    </Card.Body>
+                    </Card>
+                    </Col>
+                )
             });
             returnValue = (
                 <div>
+                    <Container>
+                    <Row>
                     {saleItems}
+                    </Row>
                     <PaginationButtons/>
+                    </Container>
                 </div>);
         }
         return(
