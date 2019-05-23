@@ -12,5 +12,5 @@ export default combineReducers({
     auth: authReducer,
     inventory: inventoryReducer,
     error: errorReducer,
-    cart:cartReducer
+    cart:cartReducer,
 })

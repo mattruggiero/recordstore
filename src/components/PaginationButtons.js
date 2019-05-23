@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setSearchResults } from '../actions/inventoryActions';
-import { Container, Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
+import {  Col, Button, ButtonToolbar } from 'react-bootstrap';
 
 
 class PaginationButtons extends Component{

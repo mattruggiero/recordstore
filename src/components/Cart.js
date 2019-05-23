@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Container, Button } from 'react-bootstrap';
-import { removeFromCart, setCart } from '../actions/cartActions';
+import { removeFromCart } from '../actions/cartActions';
 
 
 //check token
-// cart not loaded instantly 
+
 class Cart extends Component{
-    state = {toggle:true};
-    
     handleRemove = (event) =>{
         let recordDBID = event;
         removeFromCart(recordDBID);

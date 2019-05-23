@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SaleItem from './SaleItem';
 import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
 import { setSearchResults, setSelected } from '../actions/inventoryActions';
-import { setCart, addToCart } from '../actions/cartActions';
-import { Row, Col, Container, Card, Button, CardColumns } from 'react-bootstrap';
+import {  addToCart } from '../actions/cartActions';
+import { Row, Col, Container, Card, Button } from 'react-bootstrap';
 
-//needs to be optimised so pagination buttons only show up if there is more results
+//pagination buttons should only show up if needed
 //needs a message for bad searchInput
 //need to force all cards to same size 
 //cart needs work, need a message if item is already in cart, also would be nice to remove
@@ -44,7 +43,7 @@ class DisplayResults extends Component {
                 let transformedResult = helper.getTransformedResult(item,storeIndex);
                 return(
                     <Col key = {item._id}>
-                    <Card style = {{width: '21rem'}} border = "dark" >
+                    <Card style = {{width: '16rem'}} border = "dark" >
                     <Card.Img 
                         variant="top" 
                         src={transformedResult.coverImage}
@@ -94,10 +93,10 @@ class DisplayResults extends Component {
 
 }
 
-
 const mapStateToProps = state => {
     return{
-        inventory:state.inventory
+        inventory:state.inventory,
+        auth:state.auth
     };
 };
 

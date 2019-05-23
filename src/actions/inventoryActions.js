@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_SEARCH_RESULTS, SET_SELECTED} from '../actions/types';
+import {  SET_SEARCH_RESULTS, SET_SELECTED} from '../actions/types';
 import store from '../store';
 
 
