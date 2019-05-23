@@ -4,7 +4,6 @@ const User = require('../../models/User');
 const Record = require('../../models/Record');
 const jwtDecode = require('jwt-decode');
 
-
 async function decodeToken(jwtToken){
     try{
         let dirtyToken = jwtToken;

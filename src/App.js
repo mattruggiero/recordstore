@@ -8,6 +8,8 @@ import UserRegister from './components/UserRegister';
 import UserLogin from './components/UserLogin';
 import TheNavbar from './components/layout/TheNavbar';
 import DisplayOne from './components/DisplayOne';
+import Footer from './components/layout/Footer';
+import Cart from './components/Cart';
 
 
 import { Provider } from 'react-redux';
@@ -47,6 +49,9 @@ class App extends Component{
           <Route exact path = "/register" component = { UserRegister }/>
           <Route exact path = "/" component = { DisplayResults }/>
           <Route exact path = "/displayOne" component = { DisplayOne }/>
+          <Route exact path = "/cart" component = { Cart }/>
+          <hr/>
+          <Footer/>
 
           
         </div>

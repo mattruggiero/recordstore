@@ -14,9 +14,40 @@ export function setCart(recordDBID){
                 payload:response.data,
             })
         })
-
-
 }
+
+export function removeFromCart(recordDBID){
+    let url = '/cart/remove';
+    let postData = { recordDBID:recordDBID};
+
+    axios({method:'post', url:url,data:postData})
+        .then(response => {
+            console.log(response);
+            store.dispatch({
+                type:SET_CART,
+                payload:response.data,
+            })
+        })
+
+    }
+
+export function addToCart(recordDBID){
+    let url = '/cart/add';
+    let postData = { recordDBID:recordDBID};
+
+    axios({method:'post', url:url,data:postData})
+        .then(response => {
+            console.log(response);
+            store.dispatch({
+                type:SET_CART,
+                payload:response.data,
+            })
+        })
+
+    
+}
+
+
 
 // export function registerUser(userData){
 //     let url = '/register';

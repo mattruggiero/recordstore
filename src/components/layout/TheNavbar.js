@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem} from 'react-bootstrap';
+import { Nav, Navbar, Button} from 'react-bootstrap';
 import SearchForm from '../SearchForm';
-import { LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer} from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 
-//window.location.href = '/login';
+
 class TheNavbar extends Component {
     onClick = (event) => {
         logoutUser();
@@ -14,57 +14,38 @@ class TheNavbar extends Component {
     render(){
 
         let haveToken = this.props.auth.isAuthenticated;
-       
-        
-        
         let loggedIn = (
-            <Nav className = 'mr-auto'>
-            <LinkContainer  to = '/cart'>
-            <NavItem>Cart</NavItem>
+            <div>
+            <Button onClick = {this.onClick}>Log Out</Button>
+            <LinkContainer to = '/cart'>
+                <Button>View Cart</Button>
             </LinkContainer>
-            <NavItem>
-                <button onClick = {this.onClick}>
-                    Logout
-                </button>
-            </NavItem>
-            </Nav>
-        );
+            </div>
+        )
         let notLoggedIn = (
-            <Nav className = 'mr-auto'>
-            <LinkContainer  to = '/login'>
-                <NavItem>Login/</NavItem>
+            <div>
+            <LinkContainer to = '/login'>
+                <Button>Login</Button>
             </LinkContainer>
-           
             <LinkContainer to = '/register'>
-                <NavItem>Register</NavItem>
+                <Button>Register</Button>
             </LinkContainer>
-            </Nav>
-
-        );
-
+            </div>
+        )
         let navsToDisplay = haveToken? loggedIn:notLoggedIn;
         return(
-            
-            <Navbar bg='primary'  >
-            <Nav className = 'mr-auto'>
-            <LinkContainer to = '/'>
-                <NavItem>Home</NavItem>
-            </LinkContainer>
-            </Nav>
-            
+            <Navbar className = 'justify-content-end' bg='primary'>
+            <Navbar.Brand className = 'mr-auto'>
+                <LinkContainer to = '/'>
+                <Button size = 'lg'>Practicum Record Store</Button>
+                </LinkContainer>
+            </Navbar.Brand>
+            <Nav>
             {navsToDisplay}
-
-            <Nav className = 'mr-auto'>
             <SearchForm/>
             </Nav>
-            
-            
-           
             </Navbar>
-           
-            
         )
-        
     }
 }
 

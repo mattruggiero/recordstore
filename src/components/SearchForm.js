@@ -42,8 +42,9 @@ class SearchForm extends Component {
         render(){
             return(
             <Container>
-                <Form onSubmit = {this.handleSubmit}>
+                <Form inline onSubmit = {this.handleSubmit}>
                 <Form.Control
+                    size = 'lg'
                     onChange = {this.handleTyping}
                     type = "text"
                     name = "searchInput"
