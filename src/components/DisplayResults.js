@@ -4,7 +4,7 @@ import * as helper from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
 import { setSearchResults, setSelected } from '../actions/inventoryActions';
 import {  addToCart, removeFromCart } from '../actions/cartActions';
-import { Row, Col, Container, Card, Button } from 'react-bootstrap';
+import { Row, Col, Container, Card, Button, Spinner} from 'react-bootstrap';
 
 //pagination buttons should only show up if needed
 //needs a message for bad searchInput
@@ -33,9 +33,13 @@ class DisplayResults extends Component {
         this.props.history.push('/displayOne');
     }
     render(){
+        let mySpinner = <Spinner animation = 'grow' variant ='primary' size ='lg' style = {{margin:'10rem'}}/>
         let loggedIn = this.props.auth;
         let inventoryLoaded = this.props.inventory.haveData? true:false;
-        let returnValue = (<div>LOADING</div>)
+        //let returnValue = (<div>LOADING</div>)
+        let returnValue = <Container style = {{textAlign:'center'}}>
+            {mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}
+            </Container>;
         if(inventoryLoaded){
             let saleItems = this.props.inventory.resultsToDisplay.map(item => {
                 let storeIndex = this.props.inventory.resultsToDisplay.indexOf(item)

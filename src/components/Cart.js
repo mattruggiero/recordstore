@@ -11,9 +11,9 @@ class Cart extends Component{
         let recordDBID = event;
         removeFromCart(recordDBID);
     }
-    
+
     render(){
-        let returnValue = (<div></div>)
+        let returnValue = (<div><h1 style = {{textAlign:"center"}}>Nothing in your cart</h1></div>)
         let haveCart = this.props.cart.length ? true:false;
         if(haveCart){
             let total = 0;
