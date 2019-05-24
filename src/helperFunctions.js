@@ -63,3 +63,10 @@ export const hasImage = (props) => {
     }
     return returnValue;
 }
+
+export function foundInCart(cart, recordDBID){
+     for(let i in cart){
+         if(cart[i]._id === recordDBID)
+            return true;
+     }
+}
