@@ -38,3 +38,11 @@ export function addToCart(recordDBID){
 
     
 }
+
+export function emptyCart(){
+    let url = '/cart/empty';
+    axios({method:'post', url:url})
+        .then(response => {
+            setCart();
+        })
+}

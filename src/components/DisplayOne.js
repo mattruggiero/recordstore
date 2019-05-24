@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Container from 'react-bootstrap/Container';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Image from 'react-bootstrap/Image';
 import Gallery from 'react-grid-gallery';
 
@@ -26,10 +25,10 @@ class DisplayOne extends Component {
         return(
             <div>
                 <Container>
-                    <Jumbotron fluid>
+                    <div style = {{textAlign:'center'}}>
                     <h1>{record.artist}</h1>
                     <h1>{record.title}</h1>
-                    </Jumbotron>
+                    </div>
                     <hr/>
                 </Container>
                 <Container>
@@ -53,7 +52,7 @@ class DisplayOne extends Component {
                         </Tab>
                         <Tab eventKey = 'Notes' title = 'Notes'>
                         <Row>
-                            <Col>{record.notes}</Col>
+                            <Col>{record.notes || "No Notes To Display"}</Col>
                         </Row>
                         </Tab>
                         <Tab eventKey = 'Pictures' title = 'Pictures'>

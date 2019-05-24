@@ -19,13 +19,10 @@ class DisplayResults extends Component {
     handleAddToCart = (event) =>{
         let recordDBID = event;
         addToCart(recordDBID);
-        console.log("ADDED TO CART");
-        
-    }
+     }
     handleRemoveFromCart = (event) =>{
         let recordDBID = event;
         removeFromCart(recordDBID);
-        console.log("removed from cart");
     }
     handleClick = (event) => {
         let selectedRecord = this.props.inventory.resultsToDisplay[event];
@@ -36,7 +33,6 @@ class DisplayResults extends Component {
         let mySpinner = <Spinner animation = 'grow' variant ='primary' size ='lg' style = {{margin:'10rem'}}/>
         let loggedIn = this.props.auth;
         let inventoryLoaded = this.props.inventory.haveData? true:false;
-        //let returnValue = (<div>LOADING</div>)
         let returnValue = <Container style = {{textAlign:'center'}}>
             {mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}
             </Container>;
