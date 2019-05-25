@@ -20,7 +20,6 @@ class SearchForm extends Component {
                 this.state.searchInput === 0
             );
             if(noInput){
-                //call backe end browseAll Route
                 console.log("no input");
             }
         }

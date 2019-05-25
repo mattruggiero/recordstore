@@ -34,9 +34,6 @@ router.get('/',passport.authenticate('jwt',{ session: false}),(req,res)=>{
                 id: user.id, 
                 email: user.email, 
                 userName: user.userName,
-                //app does not like cart being here for some reason
-                //cart:user.cart
-
             }
 
             jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (error,token) =>{
@@ -52,46 +49,3 @@ router.get('/',passport.authenticate('jwt',{ session: false}),(req,res)=>{
 })
 
 module.exports =  router;
-// .post((req,res) => {
-//     const { errors, isValid } = validateLoginInput(req.body);
-//     if(!isValid){return res.json(errors)}
-
-
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     User.findOne({ email }).then(user=>{
-//         if(!user){
-//             return res.json({
-//                 success:false,
-//                 error: "invalid credentials"
-//             });
-//         }
-
-//         bcrypt.compare(password, user.password).then(passwordMatches => {
-//             if(passwordMatches){
-//                 const payload = {
-//                     id: user.id, 
-//                     email:user.email,
-//                     userName:user.userName,
-//                 };
-
-//                 jwt.sign(payload, keys.secretOrKey,{expiresIn: 36000}, (err,token)=>{
-//                     res.json({
-//                         success: true,
-//                         token: 'Bearer ' + token
-//                     })
-//                 })
-//             }
-//             else{
-//                 res.json({
-//                     success:false,
-//                     error: "invalid credentials"
-//                 })
-//             }
-//         })
-//     })
-// })
-
-
-//module.exports = router;

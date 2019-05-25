@@ -26,35 +26,10 @@ export function setSearchResults(searchingForSomething,pageNumber){
 }
 
 export function setSelected(selectedRecord){
+    localStorage.setItem('selectedRecord',JSON.stringify(selectedRecord));
     store.dispatch({
         type:SET_SELECTED,
         payload:selectedRecord
     })
     
 }
-// export async function setSearchResults(searchingForSomething,pageNumber){
-//     try{
-//         let url = '/getRecords';
-//         let postData = searchingForSomething ?
-//         {searchInput:searchingForSomething+'',pageNumber:pageNumber}:
-//         {searchInput:false,pageNumber:pageNumber};
-
-//         let response = await axios({method:'post',url:url,data:postData});
-//         if(!response.data){throw new Error('No results returned')}
-//         store.dispatch({
-//             type:SET_SEARCH_RESULTS,
-//             searchInput:searchingForSomething,
-//             payload:response.data.recordData,
-//             pageNumber: response.data.pageNumber,
-//         })
-
-//     }
-//     catch(error){
-//         console.log(error);
-//         // store.dispatch({
-//         //     type: GET_ERRORS,
-//         //     payload: error.response.data
-//         // })
-
-//     }
-// }

@@ -18,6 +18,7 @@ import store from './store';
 import { setAuthToken } from './helperFunctions';
 import { logoutUser } from './actions/authActions';
 import { setCart } from './actions/cartActions';
+import { setSelected } from './actions/inventoryActions';
 
 //check for token
 if(localStorage.jwtToken){
@@ -34,6 +35,12 @@ if(localStorage.jwtToken){
     payload: decoded
   });
   setCart();
+}
+
+//check for selected record
+if(localStorage.selectedRecord){
+  let selectedRecord = JSON.parse(localStorage.getItem('selectedRecord'));
+  setSelected(selectedRecord);
 }
 
 

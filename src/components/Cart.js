@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Container, Button } from 'react-bootstrap';
-import {  emptyCart } from '../actions/cartActions';
+import { Table, Container } from 'react-bootstrap';
 import  ViewDetailsButton  from '../components/buttons/ViewDetailsButton';
 import RemoveFromCartButton from '../components/buttons/RemoveFromCartButton';
 import EmptyCartButton from '../components/buttons/EmptyCartButton';

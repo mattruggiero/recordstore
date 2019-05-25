@@ -1,4 +1,4 @@
-import * as helper from '../helperFunctions';
+import { isEmpty } from '../helperFunctions';
 
 import { SET_CURRENT_USER } from '../actions/types';
 
@@ -15,7 +15,7 @@ export default function(state = initialState, action){
         case SET_CURRENT_USER:
             return {
                 ...state,
-                isAuthenticated: !helper.isEmpty(action.payload),
+                isAuthenticated: !isEmpty(action.payload),
                 user:action.payload
             };
             default: 
