@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as helper from '../helperFunctions';
+import { foundInCart, getTransformedResult } from '../helperFunctions';
 import PaginationButtons from './PaginationButtons';
 import { setSearchResults, setSelected } from '../actions/inventoryActions';
 import {  addToCart, removeFromCart } from '../actions/cartActions';
 import { Row, Col, Container, Card, Button, Spinner} from 'react-bootstrap';
+import ViewDetailsButton from './buttons/ViewDetailsButton';
 
 //pagination buttons should only show up if needed
 //needs a message for bad searchInput
@@ -39,8 +40,8 @@ class DisplayResults extends Component {
         if(inventoryLoaded){
             let saleItems = this.props.inventory.resultsToDisplay.map(item => {
                 let storeIndex = this.props.inventory.resultsToDisplay.indexOf(item)
-                let transformedResult = helper.getTransformedResult(item,storeIndex);
-                let alreadyInCart = helper.foundInCart(this.props.cart,item._id);
+                let transformedResult = getTransformedResult(item,storeIndex);
+                let alreadyInCart = foundInCart(this.props.cart,item._id);
                 let addToCartButton = (
                 <Button 
                     onClick = {this.handleAddToCart.bind(this,item._id)}
@@ -68,12 +69,7 @@ class DisplayResults extends Component {
                         <Card.Text style = {{height:"7rem"}}>{transformedResult.title}</Card.Text>
                         <Row>
                         <Col>
-                        <Button 
-                            size = 'sm' 
-                            block
-                            onClick = {this.handleClick.bind(this,storeIndex)}>
-                            View Details
-                        </Button>
+                        <ViewDetailsButton storeIndex = {storeIndex}/>
                         {loggedIn? cartButton : <div></div>}
                         </Col>
                         </Row>
