@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setSearchResults } from '../actions/inventoryActions';
+import { setSearchResults } from '../../actions/inventoryActions';
 import {  Col, Button, ButtonToolbar } from 'react-bootstrap';
 
 

@@ -3,17 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import React from 'react';
 
 
-export function getTransformedResult(result,storeIndex){
-    let resultObject = {
-        artist:result.artist,
-        price:result.price,
-        title:result.title,
-        releaseID:result.releaseID,
-        coverImage:result.images[0].uri,
-        storeIndex:storeIndex
-    }
-    return resultObject;
-}
+
 export  function isEmpty(value){
     let returnValue = value === undefined || value === null ||
     (typeof value === 'object' && Object.keys(value).length === 0)||
@@ -64,6 +54,7 @@ export const hasImage = (props) => {
     return returnValue;
 }
 
+//order items in cart by releaseID and do binary search here
 export function foundInCart(cart, recordDBID){
      for(let i in cart){
          if(cart[i]._id === recordDBID)

@@ -8,25 +8,17 @@ import { setSelected } from '../../actions/inventoryActions';
 class ViewDetailsButton extends Component {
 
     handleClick = (event) =>{
-        let selectedRecord = this.props.inventory.resultsToDisplay[event];
+        let selectedRecord = event;
         setSelected(selectedRecord);
         this.props.history.push('/displayOne');
     }
 
     render(){
-        //old button 
-    //     <Button 
-    //     size = 'sm' 
-    //     block
-    //     onClick = {this.handleClick.bind(this,storeIndex)}>
-    //     View Details
-    // </Button>
-        let storeIndex = this.props.storeIndex;
-        console.log("button store index: ",storeIndex);
+        let record = this.props.record;
         return(
             <Button
                 size = 'sm' block 
-                onClick = {this.handleClick.bind(this,storeIndex)}>
+                onClick = {this.handleClick.bind(this,record)}>
                 View Details
             </Button>
         );
@@ -34,12 +26,8 @@ class ViewDetailsButton extends Component {
 }
 
 
-const mapStateToProps = state => {
-    return{
-        inventory:state.inventory
-    }
-}
 
-export default connect(mapStateToProps)(ViewDetailsButton);
+
+export default ViewDetailsButton;
 
 

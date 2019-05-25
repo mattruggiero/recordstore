@@ -1,79 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { foundInCart, getTransformedResult } from '../helperFunctions';
-import PaginationButtons from './PaginationButtons';
-import { setSearchResults, setSelected } from '../actions/inventoryActions';
-import {  addToCart, removeFromCart } from '../actions/cartActions';
-import { Row, Col, Container, Card, Button, Spinner} from 'react-bootstrap';
+import { foundInCart,  } from '../helperFunctions';
+import PaginationButtons from './buttons/PaginationButtons';
+import { setSearchResults } from '../actions/inventoryActions';
+import { Row, Col, Container, Card } from 'react-bootstrap';
 import ViewDetailsButton from './buttons/ViewDetailsButton';
+import RemoveFromCartButton from './buttons/RemoveFromCartButton';
+import AddToCartButton from './buttons/AddToCartButton';
+import LoadingSpinner from './LoadingSpinner';
 
-//pagination buttons should only show up if needed
-//needs a message for bad searchInput
-//cart needs work, need a message if item is already in cart, also would be nice to remove
-//      from cart here
-// server lets add multiples to cart need a plan for this
 class DisplayResults extends Component {
     componentDidMount(){
         setSearchResults(this.props.inventory.resultsToDisplay || null, 
              this.props.inventory.pageNumber);
-    }
-    handleAddToCart = (event) =>{
-        let recordDBID = event;
-        addToCart(recordDBID);
-     }
-    handleRemoveFromCart = (event) =>{
-        let recordDBID = event;
-        removeFromCart(recordDBID);
-    }
-    handleClick = (event) => {
-        let selectedRecord = this.props.inventory.resultsToDisplay[event];
-        setSelected(selectedRecord);
-        this.props.history.push('/displayOne');
+        console.log(this.props.history);
     }
     render(){
-        let mySpinner = <Spinner animation = 'grow' variant ='primary' size ='lg' style = {{margin:'10rem'}}/>
-        let loggedIn = this.props.auth;
-        let inventoryLoaded = this.props.inventory.haveData? true:false;
-        let returnValue = <Container style = {{textAlign:'center'}}>
-            {mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}{mySpinner}
-            </Container>;
-        if(inventoryLoaded){
+        let returnValue = <LoadingSpinner/>
+        if(this.props.inventory.haveData){
             let saleItems = this.props.inventory.resultsToDisplay.map(item => {
-                let storeIndex = this.props.inventory.resultsToDisplay.indexOf(item)
-                let transformedResult = getTransformedResult(item,storeIndex);
-                let alreadyInCart = foundInCart(this.props.cart,item._id);
-                let addToCartButton = (
-                <Button 
-                    onClick = {this.handleAddToCart.bind(this,item._id)}
-                    size = 'sm' block>
-                    Add To Cart
-                </Button>
-                );
-                let removeFromCartButton = (
-                    <Button
-                        onClick = {this.handleRemoveFromCart.bind(this,item._id)}
-                        size = 'sm' block>
-                        Remove From Cart
-                    </Button>
-                )
-                let cartButton = alreadyInCart? removeFromCartButton:addToCartButton;
+                let cartButton = foundInCart(this.props.cart,item._id)? 
+                    (<RemoveFromCartButton recordDBID = {item._id}/>):(<AddToCartButton recordDBID = {item._id}/>);
                 return(
                     <Col key = {item._id}>
                     <Card style = {{width: '16rem',height:'35rem',margin:'1rem'}} border = "dark" >
                     <Card.Img 
                         variant="top" 
-                        src={transformedResult.coverImage}
+                        src={item.images[0].uri}
                         height="250" />
                     <Card.Body >
-                        <Card.Title>{transformedResult.artist}</Card.Title>
-                        <Card.Text style = {{height:"7rem"}}>{transformedResult.title}</Card.Text>
+                        <Card.Title>{item.artist}</Card.Title>
+                        <Card.Text style = {{height:"7rem"}}>{item.title}</Card.Text>
                         <Row>
                         <Col>
-                        <ViewDetailsButton storeIndex = {storeIndex}/>
-                        {loggedIn? cartButton : <div></div>}
+                        <ViewDetailsButton history = {this.props.history} record = {item}/>
+                        {this.props.auth? cartButton : <div></div>}
                         </Col>
                         </Row>
-                        <Card.Footer>Price: ${transformedResult.price}</Card.Footer>
+                        <Card.Footer>Price: ${item.price}</Card.Footer>
                     </Card.Body>
                     </Card>
                     </Col>
