@@ -3,6 +3,8 @@
 
 #keys 
 /server/config/keys.js
+/src/components/paypal/keys.js
+
 
 
 # dependencies

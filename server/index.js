@@ -14,6 +14,7 @@ const browseAll = require('./routes/shop/browseAll');
 const search = require('./routes/shop/search');
 const getRecords = require('./routes/shop/getRecords');
 const cart = require('./routes/user/cart');
+const removeRecords = require('./routes/shop/removeRecords');
 
 mongoose
     .connect(mongoDB,{
@@ -40,6 +41,7 @@ app.use('/browseAll',browseAll);
 app.use('/search',search);
 app.use('/getRecords',getRecords);
 app.use('/cart',cart);
+app.use('/removeRecords',removeRecords);
 
 
 //admin only routes

@@ -12,6 +12,7 @@
     "mongoose": "^5.5.0",
     "passport": "^0.4.0",
     "react": "^16.8.6",
+    "react-async-script-loader": "^0.3.0",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-grid-gallery": "^0.5.4",
