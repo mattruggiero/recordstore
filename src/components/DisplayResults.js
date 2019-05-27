@@ -13,7 +13,6 @@ class DisplayResults extends Component {
     componentDidMount(){
         setSearchResults(this.props.inventory.resultsToDisplay || null, 
              this.props.inventory.pageNumber);
-        console.log(this.props.history);
     }
     render(){
         let returnValue = <LoadingSpinner/>
@@ -23,14 +22,14 @@ class DisplayResults extends Component {
                     (<RemoveFromCartButton recordDBID = {item._id}/>):(<AddToCartButton recordDBID = {item._id}/>);
                 return(
                     <Col key = {item._id}>
-                    <Card style = {{width: '16rem',height:'35rem',margin:'1rem'}} border = "dark" >
+                    <Card style = {{width: '16rem',height:'37rem',margin:'1rem'}} border = "dark" >
                     <Card.Img 
                         variant="top" 
                         src={item.images[0].uri}
                         height="250" />
                     <Card.Body >
-                        <Card.Title>{item.artist}</Card.Title>
-                        <Card.Text style = {{height:"7rem"}}>{item.title}</Card.Text>
+                        <Card.Title style = {{height:'5rem'}}>{item.artist}</Card.Title>
+                        <Card.Text style = {{height:"5rem"}}>{item.title}</Card.Text>
                         <Row>
                         <Col>
                         <ViewDetailsButton history = {this.props.history} record = {item}/>
