@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Container, InputGroup, Form } from 'react-bootstrap';
+import { Table, Container, Form } from 'react-bootstrap';
 import  ViewDetailsButton  from '../components/buttons/ViewDetailsButton';
 import RemoveFromCartButton from '../components/buttons/RemoveFromCartButton';
 import EmptyCartButton from '../components/buttons/EmptyCartButton';
@@ -13,7 +13,6 @@ function removePurchasedItemsFromInventory(cart){
     axios({method:'post',url:'/removeRecords',data:cart})
         .then(response =>{console.log("axios call made")})
 }
-
 const ENV = process.env.NODE_ENV === 'production'? 'production':'sandbox';
 
 class Cart extends Component{
