@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 
-import DisplayResults from './components/DisplayResults';
-import UserRegister from './components/UserRegister';
-import UserLogin from './components/UserLogin';
+import DisplayResults from './components/storefront/DisplayResults';
+import UserRegister from './components/user/UserRegister';
+import UserLogin from './components/user/UserLogin';
 import TheNavbar from './components/layout/TheNavbar';
-import DisplayOne from './components/DisplayOne';
+import DisplayOne from './components/storefront/DisplayOne';
 import Footer from './components/layout/Footer';
-import Cart from './components/Cart';
+import Cart from './components/checkout/Cart';
 
 
 import { Provider } from 'react-redux';

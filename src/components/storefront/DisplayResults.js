@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { foundInCart,  } from '../helperFunctions';
-import PaginationButtons from './buttons/PaginationButtons';
-import { setSearchResults } from '../actions/inventoryActions';
+import { foundInCart,  } from '../../helperFunctions';
+import PaginationButtons from '../buttons/PaginationButtons';
+import { setSearchResults } from '../../actions/inventoryActions';
 import { Row, Col, Container, Card } from 'react-bootstrap';
-import ViewDetailsButton from './buttons/ViewDetailsButton';
-import RemoveFromCartButton from './buttons/RemoveFromCartButton';
-import AddToCartButton from './buttons/AddToCartButton';
+import ViewDetailsButton from '../buttons/ViewDetailsButton';
+import RemoveFromCartButton from '../buttons/RemoveFromCartButton';
+import AddToCartButton from '../buttons/AddToCartButton';
 import LoadingSpinner from './LoadingSpinner';
 
 class DisplayResults extends Component {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Container, Form } from 'react-bootstrap';
-import  ViewDetailsButton  from '../components/buttons/ViewDetailsButton';
-import RemoveFromCartButton from '../components/buttons/RemoveFromCartButton';
-import EmptyCartButton from '../components/buttons/EmptyCartButton';
-import PaypalButton from './paypal/PaypalButton';
-import { CLIENT } from './paypal/keys';
+import  ViewDetailsButton  from '../buttons/ViewDetailsButton';
+import RemoveFromCartButton from '../buttons/RemoveFromCartButton';
+import EmptyCartButton from '../buttons/EmptyCartButton';
+import PaypalButton from '../paypal/PaypalButton';
+import { CLIENT } from '../paypal/keys';
 import axios from 'axios';
-import { emptyCart } from '../actions/cartActions';
+import { emptyCart } from '../../actions/cartActions';
 
 function removePurchasedItemsFromInventory(cart){
     axios({method:'post',url:'/removeRecords',data:cart})

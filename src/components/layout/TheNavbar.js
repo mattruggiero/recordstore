@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, Button} from 'react-bootstrap';
-import SearchForm from '../SearchForm';
+import SearchForm from './SearchForm';
 import { LinkContainer} from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';

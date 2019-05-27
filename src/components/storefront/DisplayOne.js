@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Tab, Tabs, Container, Image} from 'react-bootstrap';
 import Gallery from 'react-grid-gallery';
-import { formatTracklist, hasImage } from '../helperFunctions';
+import { formatTracklist, hasImage } from '../../helperFunctions';
 
 class DisplayOne extends Component {
     render(){

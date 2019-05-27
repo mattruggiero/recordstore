@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { login } from '../actions/authActions';
+import { login } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import { setCart } from '../actions/cartActions';
+import { setCart } from '../../actions/cartActions';
 
 
 class UserLogin extends Component {
