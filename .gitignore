@@ -2,8 +2,9 @@
 
 
 #keys 
-/server/config/keys.js
-/src/components/paypal/keys.js
+/server/config/keys_dev.js
+/src/components/paypal/paypal_keys_dev.js
+
 
 
 

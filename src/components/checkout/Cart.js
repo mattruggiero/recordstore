@@ -5,14 +5,17 @@ import  ViewDetailsButton  from '../buttons/ViewDetailsButton';
 import RemoveFromCartButton from '../buttons/RemoveFromCartButton';
 import EmptyCartButton from '../buttons/EmptyCartButton';
 import PaypalButton from '../paypal/PaypalButton';
-import { CLIENT } from '../paypal/keys';
 import axios from 'axios';
 import { emptyCart } from '../../actions/cartActions';
+
+// won't work in PaypalButton.js 
+import { CLIENT } from '../paypal/paypal_keys';
 
 function removePurchasedItemsFromInventory(cart){
     axios({method:'post',url:'/removeRecords',data:cart})
         .then(response =>{console.log("axios call made")})
 }
+
 const ENV = process.env.NODE_ENV === 'production'? 'production':'sandbox';
 
 class Cart extends Component{
@@ -23,7 +26,9 @@ class Cart extends Component{
         }
         this.handleRadio = this.handleRadio.bind(this);
     }
-
+    componentDidMount(){
+        if(!this.props.auth){this.props.history.push('/');}
+    }
     handleRadio = (event) => { this.setState({shipping:event.target.id})}
 
     render(){
@@ -97,7 +102,7 @@ class Cart extends Component{
                         </tr>
                         <tr>
                         <td><div>TOTAL</div></td>
-                        <td><div>{(Number)(total + shippingCharge)}</div></td>
+                        <td><div>{(Number)(total + shippingCharge).toFixed(2)}</div></td>
                         <td><PaypalButton
                                 client={CLIENT}
                                 env={ENV}
@@ -131,7 +136,7 @@ class Cart extends Component{
 const mapStateToProps = state => {
     return{
         cart : state.cart.cart,
-        auth: state.auth,
+        auth: state.auth.isAuthenticated,
     }
 }
 
