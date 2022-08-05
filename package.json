@@ -9,7 +9,7 @@
     "disconnect": "^1.2.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "mongoose": "^5.5.0",
+    "mongoose": "^5.7.5",
     "passport": "^0.4.0",
     "react": "^16.8.6",
     "react-async-script-loader": "^0.3.0",
